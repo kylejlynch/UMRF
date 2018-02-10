@@ -1,18 +1,3 @@
-
-# UMRF Ventures Agent Data and Statistics
-
-This notebook demonstrates a current project of mine that logs weekly data from UMRF Ventures and performs statistics.
-UMRF Ventures is a start-up that opened in August of 2017 and runs a Level 1 call center that troubleshoots IT issues for common services for FedEx employees worldwide.
-Weekly, we receive performance data on each of our agents (e.g. Talk time, percentage of issues resolved, survey scores, etc.)
-
-Data is received weekly in .csv format as shown below:
-
-![](img/Sprdshtcens.png)
-
-One of our agents would spend hours at a time compiling and performing statistics periodically. I knew that as UMRF Ventures grew this task would become increasingly arduous. I took it upon myself to come up with a more sophisticated approach. I wrote a program using Python and SQLite to extract raw data from the .csv files and construct
-an SQL table for each agent which keeps track of each agents data. Below is my current code:
-
-```python
 import sqlite3
 
 conn = sqlite3.connect('UMRF_SQL2.sqlite')
@@ -21,7 +6,7 @@ cur = conn.cursor()
 cur.execute('''CREATE TABLE Employees (EmployeeNumber INTEGER PRIMARY
             KEY NOT NULL UNIQUE, Lastname TEXT, FirstName TEXT)''')
 
-filelist = ['week1.csv', 'week2.csv', 'week3.csv', 'week4.csv', 'week5.csv']
+filelist = ['1.csv', '2.csv', '3.csv', '4.csv', '5.csv']
 for file in filelist :
     cruzname = list()
     fullname = list()
@@ -164,11 +149,5 @@ for i in fullname :
                 FROM {} ''' .format(i))
 
 conn.commit()
+
 cur.close()
-```
-
-The result is an SQL database that keeps track of agent data over all time with a summary table that provides statistics that changes as weekly data is appended.
-
-![](img/SQL1.png)
-
-This data is then used to provide feedback to the agents and decide whether agents get raises. Currently I am working with one of the agents to extract data from our time logging system. I am interested to see if there is any correlation between average shift worked (time of the day) and performance as different sets of caller issues occur primarily at different times of the day. Therefore, I wonder if comparing agents that can only work night shifts to those that can work mornings is a fair, unbiased assessment.
