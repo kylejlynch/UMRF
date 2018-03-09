@@ -7,7 +7,7 @@ Weekly, we receive performance data on each of our agents (e.g. Talk time, perce
 
 Data is received weekly in .csv format as shown below:
 
-![](img/Sprdshtcens.png)
+![](https://i.imgur.com/9CRnEML.png)
 
 One of our agents would spend hours at a time compiling and performing statistics periodically. I knew that as UMRF Ventures grew this task would become increasingly arduous. I took it upon myself to come up with a more sophisticated approach. I wrote a program using Python and SQLite to extract raw data from the .csv files and construct
 an SQL table for each agent which keeps track of each agents data. Below is my current code:
@@ -169,6 +169,6 @@ cur.close()
 
 The result is an SQL database that keeps track of agent data over all time with a summary table that provides statistics that changes as weekly data is appended.
 
-![](img/SQL1.png)
+![](https://i.imgur.com/jCZmM3Y.png)
 
 This data is then used to provide feedback to the agents and decide whether agents get raises. Currently I am working with one of the agents to extract data from our time logging system. I am interested to see if there is any correlation between average shift worked (time of the day) and performance as different sets of caller issues occur primarily at different times of the day. Therefore, I wonder if comparing agents that can only work night shifts to those that can work mornings is a fair, unbiased assessment.
