@@ -1,17 +1,10 @@
-from __future__ import print_function
 import imaplib, email
 import sqlite3
 from bs4 import BeautifulSoup
 import pandas as pd
-from apiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file, client, tools
-from apiclient.http import MediaFileUpload
 import numpy as np
 import os
 import re
-from datetime import date
-import calendar
 
 user = 'myemail@domain.com'
 password = 'password'
