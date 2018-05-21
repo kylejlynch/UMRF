@@ -1,4 +1,3 @@
-from __future__ import print_function
 import imaplib, email
 import sqlite3
 from bs4 import BeautifulSoup
