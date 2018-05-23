@@ -9,11 +9,11 @@ import numpy as np
 def weeklytoplots() :
     conn = sqlite3.connect('UMRF_SQL_Weekly.sqlite')
     
-    val = ['FCR %', 'Ticket %']
-    weight = ['IncidentsCreated','CallsHandled']
-    name = ['Resolution Rate (FCR %)', 'Percent Tickets Created (%)']
-    axis = [(60,100), (90,120)]
-    filename = ['avgFCR','avgTicket']
+    val = ['FCR %', 'Ticket %','NR%','AHT (min)']
+    weight = ['IncidentsCreated','CallsHandled','LoggedOnTime (hrs)','CallsHandled']
+    name = ['Resolution Rate (FCR %)', 'Percent Tickets Created (%)','Percent Time on Not Ready (%)','Call Handle Time (min)']
+    axis = [(60,100), (90,120),(0,50),(6,18)]
+    filename = ['avgFCR','avgTicket','avgNR','avgAHT']
     
     for i,j,k,l,m in zip(val,weight,name,axis,filename) :
         dfraw = pd.read_sql_query('''SELECT "WeekStart"
@@ -38,7 +38,7 @@ def weeklytoplots() :
         for item in x.get_ticklabels() :
             item.set_rotation(60)
             item.set_fontsize(8)
-        for label in ax.xaxis.get_ticklabels()[-2:0:-2] :
+        for label in ax.xaxis.get_ticklabels()[-2::-2] :
             label.set_visible(False)
         plt.subplots_adjust(bottom=0.25)
         
