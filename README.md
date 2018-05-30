@@ -7,7 +7,7 @@ Weekly, we receive performance data on each of our agents (e.g. Talk time, perce
 
 When I first started this project, we had accumulated months of data located in different locations including eml files as well as email accounts. After creating a dedicated email address to receive new agent call data, I began writing several programs to obtain, clean, format, and store all the data into two separate databases (DB) based on the type of data (Daily and Weekly data). Once the DBs were initialized with several programs (labeled with blue arrows in the accompanying flow diagram below) and using the Daily DB to correct for some mistakes in the Weekly data that occurred on FedEx's end (indicated by the blue dashed arrow), I wrote programs the would update the daily and weekly DBs on a daily and weekly basis, respectively (indicated by yellow arrows below).
 
-![](https://i.imgur.com/v1rketE.png)
+![](https://i.imgur.com/XHumHba.png)
 
 #### Below are descriptions for each program as well as direct links to the code:
 
