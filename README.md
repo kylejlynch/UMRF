@@ -7,7 +7,7 @@ Weekly, we receive performance data on each of our agents (e.g. Talk time, perce
 
 When I first started this project, we had accumulated months of data located in different locations including eml files as well as email accounts. After creating a dedicated email address to receive new agent call data, I began writing several programs to obtain, clean, format, and store all the data into two separate databases (DB) based on the type of data (Daily and Weekly data). Once the DBs were initialized with several programs (labeled with blue arrows in the accompanying flow diagram below) and using the Daily DB to correct for some mistakes in the Weekly data that occurred on FedEx's end (indicated by the blue dashed arrow), I wrote programs the would update the daily and weekly DBs on a daily and weekly basis, respectively (indicated by yellow arrows below).
 
-![](https://i.imgur.com/oREM77z.png)
+![](https://i.imgur.com/XHumHba.png)
 
 #### Below are descriptions for each program as well as direct links to the code:
 
@@ -17,6 +17,7 @@ When I first started this project, we had accumulated months of data located in 
 * [agent_weekly.py](https://github.com/kylejlynch/UMRF/blob/master/agent_weekly.py) - Updates weekly SQL database every Monday with statistics from the previous week gathered from data sent to an email address from FedEx.
 * [weekly_to_excel.py](https://github.com/kylejlynch/UMRF/blob/master/weekly_to_excel.py) - Updates an Excel workbook every Monday with data from the previous week highlighting poor performance and values that crossed a certain threshold. The workbook (pictured below) contains a summary page containing weighted averages for each stat, as well as a page containing the overall average stats for all agents for comparison. Additionally, the workbook contains a separate tab for each individual agent  grouping the performance data by week to monitor performance over time.
 * [weekly_to_plots.py](https://github.com/kylejlynch/UMRF/blob/master/weekly_to_plots.py) - Updates various plots with along with a simple linear regression every Monday to give a quick glimpse at overall agent performance.
+* [top_perform.py](https://github.com/kylejlynch/UMRF/blob/master/top_perform.py) - Adds the top 3 agents with the best stats in 4 different categories for the previous day (updates daily) and the previous week (updates weekly) to the PythonAnywhere webpage. Utilizes jQuery script.
 
 ### Database Initialization
 * [daily_init_file.py](https://github.com/kylejlynch/UMRF/blob/master/agent_daily_init_file.py) - Obtains daily data from backlogged eml files stored locally. Checks to ensure only contains one entry per date.

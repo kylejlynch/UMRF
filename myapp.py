@@ -13,3 +13,7 @@ if date.today().weekday() == 0 :
     agentweekly()
     weeklytoexcel()
     weeklytoplots()
+
+top_perform()
+
+print('myapp.py executed successfully!')
