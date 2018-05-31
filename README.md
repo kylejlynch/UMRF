@@ -31,6 +31,7 @@ When I first started this project, we had accumulated months of data located in 
 The result is a webapp hosted on PythonAnywhere at UMRFVentures.pythonanywhere.com (screenshot shown below) which runs daily to collect call data and statistics for the previous day. Every Monday a new Excel sheet is generated to incorporate the previous week and provide the most up-to-date statistics auto formatted so to highlight poor performance. Additionally, several plots are generated every Monday to provide a quick glimpse of the most recent trends in agent performance.
 
 ![](https://i.imgur.com/Q5nQoF0.png)
+![](https://i.imgur.com/Vzzrlxq.png)
 
 The Excel workbook is currently used by supervisors to ensure that agents are performing up to standard, and for helping supervisors conduct 90 day reviews for agents up for their 90 day raise.
 
@@ -40,5 +41,4 @@ I am still adding to the website.
 
 **My to do list:**
 * Add Outflow calls for previous week (code already written)
-* Add previous day's top performers
-* Add previous week's top performers
+* Tracking tardies/absences
