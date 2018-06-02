@@ -35,7 +35,7 @@ The result is a webapp hosted on PythonAnywhere at UMRFVentures.pythonanywhere.c
 
 The Excel workbook is currently used by supervisors to ensure that agents are performing up to standard, and for helping supervisors conduct 90 day reviews for agents up for their 90 day raise.
 
-![Agent_Weekly.xlsx](https://i.imgur.com/u3o82Ow.png)
+![Agent_Weekly.xlsx](https://i.imgur.com/kOOAhs2.png)
 
 I am still adding to the website.
 
