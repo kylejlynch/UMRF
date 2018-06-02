@@ -7,6 +7,23 @@ from datetime import datetime,timedelta
 import xlsxwriter
 import string
 
+def w_avg(values,weights=None) :
+    numer = 0
+    if weights is None :
+        weights = np.ones(len(values))
+    for v,w in zip(values,weights):
+        numer += w*v
+        denom = sum(weights)
+    return float(numer/denom)
+
+def w_stdev(values,weights,avg) :
+    numer = 0
+    m = sum([int(bool(i)) for i in weights])
+    for v,w in zip(values,weights):
+        numer += w*(np.square(v - avg))
+        denom = ((m - 1)/m)*sum(weights)
+    return(np.sqrt(numer/denom))
+
 def weeklytoexcel() :
     lstwk = datetime.strftime(datetime.now() - timedelta(7), '%Y-%m-%d')
     os.rename('Agent_Weekly.xlsx', 'Agent_Weekly_{}.xlsx'.format(lstwk))
@@ -59,30 +76,52 @@ def weeklytoexcel() :
                 FROM "AllData"
                 ''',conn)
     
+    stats = pd.read_sql_query('''SELECT * FROM "AllData"''',conn)
+    stats = stats.fillna(0)
+    x_fcr = w_avg(stats['FCR %'].tolist(),stats['IncidentsCreated'].tolist())
+    x_aht = w_avg(stats['AHT (min)'].tolist(),stats['CallsHandled'].tolist())
+    x_ticket = w_avg(stats['Ticket %'].tolist(),stats['CallsHandled'].tolist())
+    x_nr = w_avg(stats['NR%'].tolist(),stats['LoggedOnTime (hrs)'].tolist())
+    std_fcr = w_stdev(stats['FCR %'].tolist(),stats['IncidentsCreated'].tolist(),x_fcr)
+    std_aht = w_stdev(stats['AHT (min)'].tolist(),stats['CallsHandled'].tolist(),x_aht)
+    std_ticket = w_stdev(stats['Ticket %'].tolist(),stats['CallsHandled'].tolist(),x_ticket)
+    std_nr = w_stdev(stats['NR%'].tolist(),stats['LoggedOnTime (hrs)'].tolist(),x_nr)
+    
     writer = pd.ExcelWriter('Agent_Weekly.xlsx', engine='xlsxwriter')
     
     summary.to_excel(writer,sheet_name='Summary',index=False) #Summary
     letters = list(string.ascii_uppercase)
     workbook = writer.book
-    format1 = workbook.add_format({'bg_color': 'red'})
     worksheet = writer.sheets['Summary']
+
+    average = [x_ticket,x_fcr,x_nr,x_aht]
+    stdev = [0.5*std_ticket,std_fcr,std_nr,std_aht]
     
-    worksheet.conditional_format('J2:J{}'.format(len(summary)+1), {'type' : 'cell',
-                                        'criteria' : '<',
-                                        'value' : 100,
-                                        'format': format1})
-    worksheet.conditional_format('I2:I{}'.format(len(summary)+1), {'type' : 'cell',
-                                        'criteria' : '<',
-                                        'value' : 70,
-                                        'format': format1})
-    worksheet.conditional_format('O2:O{}'.format(len(summary)+1), {'type' : 'cell',
-                                        'criteria' : '>',
-                                        'value' : 20,
-                                        'format': format1})
-    worksheet.conditional_format('T2:T{}'.format(len(summary)+1), {'type' : 'cell',
-                                        'criteria' : '>',
-                                        'value' : 15,
-                                        'format': format1})
+    cols = ['J','I','O','T']
+    for col,val1,val2 in zip(cols[0:2],average[0:2],stdev[0:2]) :
+        worksheet.conditional_format('{0}2:{0}{1}'.format(col,len(summary)+1), {'type' : '3_color_scale',
+                                    'min_value' : val1-val2,
+                                    'min_type' : 'num',
+                                    'mid_value' : (val1),
+                                    'mid_type' : 'num',
+                                    'max_value' : val1+val2,
+                                    'max_type' : 'num',
+                                    'min_color' : 'red',
+                                    'mid_color' : 'white',
+                                    'max_color' : 'green'})
+    for col,val1,val2 in zip(cols[2:4],average[2:4],stdev[2:4]) :
+        print(val1-val2,val1,val1+val2)
+        worksheet.conditional_format('{0}2:{0}{1}'.format(col,len(summary)+1), {'type' : '3_color_scale',
+                                    'min_value' : (val1-val2),
+                                    'min_type' : 'num',
+                                    'mid_value' : (val1),
+                                    'mid_type' : 'num',
+                                    'max_value' : (val1+val2),
+                                    'max_type' : 'num',
+                                    'min_color' : 'green',
+                                    'mid_color' : 'white',
+                                    'max_color' : 'red'})
+    
     worksheet.freeze_panes(1, 3)
     
     for i,col in enumerate(list(summary)) :    #autofit column-width
@@ -93,6 +132,7 @@ def weeklytoexcel() :
     for i,col in enumerate(list(summary2)) :    #autofit column-width
         worksheet.set_column('{}:{}'.format(letters[i],letters[i]), len(col)+2)
     
+    cols2 = ['K','J','P','U']
     for empnum in emplist.index :
         temp = pd.read_sql_query(
                 '''SELECT *
@@ -104,24 +144,31 @@ def weeklytoexcel() :
         worksheet = writer.sheets['{} {}'.format(emplist.at[empnum,'FirstName'],emplist.at[empnum,'LastName'])]
         
         for i,col in enumerate(list(temp)) :    #autofit column-width
-            worksheet.set_column('{}:{}'.format(letters[i],letters[i]), len(col)+2) 
+            worksheet.set_column('{}:{}'.format(letters[i],letters[i]), len(col)+2)
         
-        worksheet.conditional_format('K2:K{}'.format(len(temp)+1), {'type' : 'cell',
-                                            'criteria' : '<',
-                                            'value' : 100,
-                                            'format': format1})
-        worksheet.conditional_format('J2:J{}'.format(len(temp)+1), {'type' : 'cell',
-                                            'criteria' : '<',
-                                            'value' : 70,
-                                            'format': format1})
-        worksheet.conditional_format('P2:P{}'.format(len(temp)+1), {'type' : 'cell',
-                                            'criteria' : '>',
-                                            'value' : 20,
-                                            'format': format1})
-        worksheet.conditional_format('U2:U{}'.format(len(temp)+1), {'type' : 'cell',
-                                            'criteria' : '>',
-                                            'value' : 15,
-                                            'format': format1})
+        for col,val1,val2 in zip(cols2[0:2],average[0:2],stdev[0:2]) :
+            worksheet.conditional_format('{0}2:{0}{1}'.format(col,len(temp)+1), {'type' : '3_color_scale',
+                                        'min_value' : val1-val2,
+                                        'min_type' : 'num',
+                                        'mid_value' : (val1),
+                                        'mid_type' : 'num',
+                                        'max_value' : val1+val2,
+                                        'max_type' : 'num',
+                                        'min_color' : 'red',
+                                        'mid_color' : 'white',
+                                        'max_color' : 'green'})
+        for col,val1,val2 in zip(cols2[2:4],average[2:4],stdev[2:4]) :
+            worksheet.conditional_format('{0}2:{0}{1}'.format(col,len(temp)+1), {'type' : '3_color_scale',
+                                        'min_value' : (val1-val2),
+                                        'min_type' : 'num',
+                                        'mid_value' : (val1),
+                                        'mid_type' : 'num',
+                                        'max_value' : (val1+val2),
+                                        'max_type' : 'num',
+                                        'min_color' : 'green',
+                                        'mid_color' : 'white',
+                                        'max_color' : 'red'})
+        
         worksheet.freeze_panes(1, 1)
     
     return writer.save()
