@@ -33,7 +33,7 @@ The result is a webapp hosted on PythonAnywhere at UMRFVentures.pythonanywhere.c
 ![](https://i.imgur.com/Q5nQoF0.png)
 ![](https://i.imgur.com/Vzzrlxq.png)
 
-The Excel workbook is currently used by supervisors to ensure that agents are performing up to standard, and for helping supervisors conduct 90 day reviews for agents up for their 90 day raise. Auto-formatted cells are green or red if 1 standard deviation above of below the average (green = good, red = bad).
+The Excel workbook is currently used by supervisors to ensure that agents are performing up to standard, and for helping supervisors conduct 90 day reviews for agents up for their 90 day raise. Auto-formatted cells are green or red if 1 standard deviation above of below the average (white = average, green = good, red = bad).
 
 ![Agent_Weekly.xlsx](https://i.imgur.com/kOOAhs2.png)
 
