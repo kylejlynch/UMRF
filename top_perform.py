@@ -18,12 +18,14 @@ def top_perform() :
     for i,j,k in zip(val,order,file) :
         topdf = pd.read_sql_query('''SELECT "FirstName",
                                          "LastName",
+                                         "Date",
+                                         "CallsHandled",
                                          "{0}"
                                          FROM "AllData"
                                          WHERE "Date"
                                          IS "{1}"
-                                         AND "IncidentsCreated" > 5
-                                         ORDER BY "{0}" {2} LIMIT 3'''.format(i,yesterday,j),
+                                         AND "CallsHandled" > 5
+                                         ORDER BY "{0}" {2} LIMIT 5'''.format(i,yesterday,j),
                                          conn2)
         topdf.index += 1
         topdf.to_html('{}.html'.format(k))
@@ -35,12 +37,14 @@ def top_perform() :
         for i,j,k in zip(val,order,file) :
             topdf = pd.read_sql_query('''SELECT "FirstName",
                                              "LastName",
+                                             "WeekStart",
+                                             "CallsHandled",
                                              "{0}"
                                              FROM "AllData"
                                              WHERE "WeekStart"
                                              IS "{1}"
-                                             AND "IncidentsCreated" > 20
-                                             ORDER BY "{0}" {2} LIMIT 3'''.format(i,lstwk,j),
+                                             AND "CallsHandled" > 20
+                                             ORDER BY "{0}" {2} LIMIT 5'''.format(i,lstwk,j),
                                              conn)
             topdf.index += 1
             topdf.to_html('{}.html'.format(k))

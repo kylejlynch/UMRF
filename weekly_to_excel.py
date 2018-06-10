@@ -110,7 +110,6 @@ def weeklytoexcel() :
                                     'mid_color' : 'white',
                                     'max_color' : 'green'})
     for col,val1,val2 in zip(cols[2:4],average[2:4],stdev[2:4]) :
-        print(val1-val2,val1,val1+val2)
         worksheet.conditional_format('{0}2:{0}{1}'.format(col,len(summary)+1), {'type' : '3_color_scale',
                                     'min_value' : (val1-val2),
                                     'min_type' : 'num',
@@ -172,3 +171,4 @@ def weeklytoexcel() :
         worksheet.freeze_panes(1, 1)
     
     return writer.save()
+weeklytoexcel()
