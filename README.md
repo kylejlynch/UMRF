@@ -1,5 +1,8 @@
+# UMRF Ventures Web Application and Schedule Optimization
+- [Web Application](#umrf-ventures-agent-data-and-statistics-web-application)
+- [Scheduling Optimization](#scheduling-optimization-based-on-call-patterns)
 
-# UMRF Ventures Agent Data and Statistics
+## UMRF Ventures Agent Data and Statistics Web Application
 
 This notebook demonstrates a current project of mine that logs weekly data from UMRF Ventures and performs statistics.
 UMRF Ventures is a start-up that opened in August of 2017 and runs a Level 1 call center that troubleshoots IT issues for common services for FedEx employees worldwide.
@@ -18,6 +21,7 @@ When I first started this project, we had accumulated months of data located in 
 * [weekly_to_excel.py](https://github.com/kylejlynch/UMRF/blob/master/weekly_to_excel.py) - Updates an Excel workbook every Monday with data from the previous week highlighting poor performance and values that crossed a certain threshold. The workbook (pictured below) contains a summary page containing weighted averages for each stat, as well as a page containing the overall average stats for all agents for comparison. Additionally, the workbook contains a separate tab for each individual agent  grouping the performance data by week to monitor performance over time.
 * [weekly_to_plots.py](https://github.com/kylejlynch/UMRF/blob/master/weekly_to_plots.py) - Updates various plots with along with a simple linear regression every Monday to give a quick glimpse at overall agent performance.
 * [top_perform.py](https://github.com/kylejlynch/UMRF/blob/master/top_perform.py) - Adds the top 3 agents with the best stats in 4 different categories for the previous day (updates daily) and the previous week (updates weekly) to the PythonAnywhere webpage. Utilizes jQuery script.
+* [agent_delete.py](https://github.com/kylejlynch/UMRF/blob/master/agent_delete.py) - Deletes supervisors and shift leads from the database to provide accurate averages for agents taking calls (not shown in flow diagram to avoid clutter).
 
 ### Database Initialization
 * [daily_init_file.py](https://github.com/kylejlynch/UMRF/blob/master/agent_daily_init_file.py) - Obtains daily data from backlogged eml files stored locally. Checks to ensure only contains one entry per date.
@@ -37,8 +41,11 @@ The Excel workbook is currently used by supervisors to ensure that agents are pe
 
 ![Agent_Weekly.xlsx](https://i.imgur.com/kOOAhs2.png)
 
+## Scheduling Optimization Based on Call Patterns
+Too many or too few agents for a given call volume leads to a loss in revenue. A second mini-project that I have taken on is to predict the optimal number of agents needed for 30 minute time blocks throughout the day. I wrote a program that analyzes the the calls offered, calls taken, and calls missed. The output is an Excel document that calculates the averages and standard deviations of calls offered and calls missed, broken down by day and 30 minute time block. The program then uses this to predict the optimal number of agents in each time block, each day, based on the number of calls per hour the average agent takes. The code for this can be found here:
+* [UMRF_Call_Pattern.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Call_Pattern.py) - Predicts the optimal number of agents needed to maximize the number of calls taken and reduce labor costs.
+
 I am still adding to the website.
 
 **My to do list:**
-* Add Outflow calls for previous week (code already written)
 * Tracking tardies/absences
