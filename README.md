@@ -41,9 +41,12 @@ The Excel workbook is currently used by supervisors to ensure that agents are pe
 
 ![Agent_Weekly.xlsx](https://i.imgur.com/kOOAhs2.png)
 
+
+
 ## Scheduling Optimization Based on Call Patterns
 Too many or too few agents for a given call volume leads to a loss in revenue. A second mini-project that I have taken on is to predict the optimal number of agents needed for 30 minute time blocks throughout the day. I wrote a program that analyzes the the calls offered, calls taken, and calls missed. The output is an Excel document that calculates the averages and standard deviations of calls offered and calls missed, broken down by day and 30 minute time block. The program then uses this to predict the optimal number of agents in each time block, each day, based on the number of calls per hour the average agent takes. The code for this can be found here:
 * [UMRF_Call_Pattern.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Call_Pattern.py) - Predicts the optimal number of agents needed to maximize the number of calls taken and reduce labor costs.
+
 
 I am still adding to the website.
 
