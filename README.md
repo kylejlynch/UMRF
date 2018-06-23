@@ -1,6 +1,7 @@
 # UMRF Ventures Web Application and Schedule Optimization
 - [Web Application](#umrf-ventures-agent-data-and-statistics-web-application)
 - [Scheduling Optimization](#scheduling-optimization-based-on-call-patterns)
+- [Upcoming/To do](#upcoming/to-do)
 
 ## UMRF Ventures Agent Data and Statistics Web Application
 
@@ -48,7 +49,7 @@ Too many or too few agents for a given call volume leads to a loss in revenue. A
 <br>
 <br>
 
-**My to do list:**  
+## Upcoming/To do 
 I am currently using the WhenIWork (our scheduling and timeclock application) API to:
 * Calculate revenue/earnings for previous days
 * Calculate how many calls are needed to cover labor costs for upcoming days
