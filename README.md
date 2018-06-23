@@ -48,7 +48,7 @@ Too many or too few agents for a given call volume leads to a loss in revenue. A
 <br>
 <br>
 
-**My to do list:**
+**My to do list:**  
 I am currently using the WhenIWork (our scheduling and timeclock application) API to:
 * Calculate revenue/earnings for previous days
 * Calculate how many calls are needed to cover labor costs for upcoming days
