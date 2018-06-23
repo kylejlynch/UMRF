@@ -47,7 +47,10 @@ Too many or too few agents for a given call volume leads to a loss in revenue. A
 * [UMRF_Call_Pattern.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Call_Pattern.py) - Predicts the optimal number of agents needed to maximize the number of calls taken and reduce labor costs.
 <br>
 <br>
-I am still adding to the website.
 
 **My to do list:**
-* Tracking tardies/absences
+I am currently using the WhenIWork (our scheduling and timeclock application) API to:
+* Calculate revenue/earnings for previous days
+* Calculate how many calls are needed to cover labor costs for upcoming days
+* Track time intervals where earnings is gained/lost throughout the day
+* Track tardies/absences
