@@ -1,6 +1,6 @@
 # UMRF Ventures Web Application and Schedule Optimization
 - [Web Application](#umrf-ventures-agent-data-and-statistics-web-application)
-- [Scheduling Optimization](#scheduling-optimization-based-on-call-patterns)
+- [Current Projects](#current-projects)
 - [Upcoming/To do](#upcoming)
 
 ## UMRF Ventures Agent Data and Statistics Web Application
@@ -43,14 +43,19 @@ The Excel workbook is currently used by supervisors to ensure that agents are pe
 ![Agent_Weekly.xlsx](https://i.imgur.com/kOOAhs2.png)
 <br>
 <br>
-## Scheduling Optimization Based on Call Patterns
-Too many or too few agents for a given call volume leads to a loss in revenue. A second mini-project that I have taken on is to predict the optimal number of agents needed for 30 minute time blocks throughout the day. I wrote a program that analyzes the the calls offered, calls taken, and calls missed. The output is an Excel document that calculates the averages and standard deviations of calls offered and calls missed, broken down by day and 30 minute time block. The program then uses this to predict the optimal number of agents in each time block, each day, based on the number of calls per hour the average agent takes. The code for this can be found here:
-* [UMRF_Call_Pattern.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Call_Pattern.py) - Predicts the optimal number of agents needed to maximize the number of calls taken and reduce labor costs.
+## Current Projects
+The following programs are will soon be apart of the web application. Using call data and the WhenIWork API I will automate various reports on earnings and scheduling on a daily/weekly basis. Please see below for links and descriptions of the contributing programs:
+* [UMRF_Call_Pattern_month.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/UMRF_Call_Pattern_month.py) - Analyzes pervious month's incoming calls per 30 min time block, averages them per day of the week (along with standard deviation) and uses this to predict the optimal number of agents needed to minimize both missed calls labor costs based on previous month.
+* [UMRF_Call_Pattern_day.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/UMRF_Call_Pattern_day.py) - Retreives, cleans, and formats call data (number of calls) in 30 minute intervals to aid in scheduling and earnings/labor analysis. Used in UMRF_Earnings_Time_Block.py.
+* [UMRF_Earnings_Time_Block.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/UMRF_Earnings_Time_Block.py) - Analyzes previous day's labor hours and calls received in 30 min time intervals to visualize when UMRF gains/loses money throughout the day.
+* [UMRF_Earnings_per_day.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/UMRF_Earnings_per_day.py) - Calculates and generates Excel report of the net earnings per day for given time period.
+* [UMRF_Employee_Info.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/UMRF_Employee_Info.py) - Generates an SQL database and Excel document containing UMRF ID, FedEx ID, First Name, Last Name, Location, Position, Hourly Pay Rate. The SQL DB will be used to extract info for reports. Used in UMRF_Future_Earnings.py.
+* [UMRF_Future_Earnings.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/UMRF_Future_Earnings.py) - Predicts how many calls are needed per day to cover labor costs as well as labor + 20% for a given time period.
+* [UMRF_Outflow.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/UMRF_Outflow.py) - Calculates average missed calls for the previous month (or given time period) to aid in scheduling agents.
+* [UMRF_Sched_Optimization.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/UMRF_Sched_Optimization.py) - Predicts labor cost based on schedules. Breaks the schedules into 30 min time blocks. This will be used to compare scheduled vs actual hours. It will incorporate hourly pay from SQL database emplist.sqlite to yield predicted labor cost per 30 min time block. Finally, It will compare predicted number of agents to actual agents and compare with the number of overflow calls for schedule optimization.
+* [custom_functions.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/custom_functions.py) - Various custom functions used repeatedly such as weighted average, weighted standard deviation, converting time to various formats, and several functions used for obtaining data from email.
 <br>
 
 ## Upcoming 
-I am currently using the WhenIWork (our scheduling and timeclock application) API to:
-* Calculate revenue/earnings for previous days
-* Calculate how many calls are needed to cover labor costs for upcoming days
-* Track time intervals where earnings is gained/lost throughout the day
-* Track tardies/absences
+I will soon work on:
+* Track tardies/absences with WhenIWork API
