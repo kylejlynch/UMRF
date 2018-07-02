@@ -67,7 +67,9 @@ df_final = pd.concat([df, df_call['ACD_calls_revenue']], axis=1).fillna(0)
 df_final['earnings'] = df_final['ACD_calls_revenue'] - df_final['labor_cost']
 
 print(df_final)
-df_final['ACD_calls_revenue'].plot.bar(alpha=0.5,color='green',width=0.80,legend=True)
-df_final['labor_cost'].plot.bar(alpha=0.5,color='red',width=0.50,legend=True)
+df_final['ACD_calls_revenue'].plot.bar(alpha=0.60,color='green',width=0.85,legend=True)
+df_final['labor_cost'].plot.bar(alpha=0.60,color='red',width=0.50,legend=True)
 plt.subplots_adjust(bottom=0.25)
+plt.title('Labor and Revenue for {}'.format(start))
+plt.xticks(np.arange(len(df_final.index)),df_final.reset_index()['index'].dt.time,rotation=75)
 
