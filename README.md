@@ -55,6 +55,10 @@ The following programs are will soon be apart of the web application. Using call
 * [UMRF_Sched_Optimization.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/UMRF_Sched_Optimization.py) - Predicts labor cost based on schedules. Breaks the schedules into 30 min time blocks. This will be used to compare scheduled vs actual hours. It will incorporate hourly pay from SQL database emplist.sqlite to yield predicted labor cost per 30 min time block. Finally, It will compare predicted number of agents to actual agents and compare with the number of overflow calls for schedule optimization.
 * [custom_functions.py](https://github.com/kylejlynch/UMRF/blob/master/WhenIWork/custom_functions.py) - Various custom functions used repeatedly such as weighted average, weighted standard deviation, converting time to various formats, and several functions used for obtaining data from email.
 <br>
+Example plot from UMRF_Earnings_Time_Block.py :
+
+![](https://i.imgur.com/kcSGhOx.png)
+<br>
 
 ## Upcoming 
 I will soon work on:
