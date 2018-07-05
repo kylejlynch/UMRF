@@ -57,7 +57,7 @@ The following programs are will soon be apart of the web application. Using call
 <br>
 Example plot from UMRF_Earnings_Time_Block.py :
 
-![](https://i.imgur.com/kcSGhOx.png)
+![](https://i.imgur.com/4eo7AVe.png)
 <br>
 
 ## Upcoming 
