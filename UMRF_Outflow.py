@@ -16,7 +16,7 @@ def convtime(t) :
 df = pd.DataFrame()
 datelist = []
 
-path = 'Call Patterns/'
+path = 'Call Patterns/April2018'
 listing = os.listdir(path)
 for file in listing :
     fh = open(os.path.join(path,file), 'rb')
@@ -56,6 +56,7 @@ for file in listing :
 
 df = df.apply(pd.to_numeric, errors='ignore')
 dfavg = df.groupby(['Day','Time Interval'],sort=False)['Overflow Calls'].mean().round(2)
+print(dfavg)
 
 writer = pd.ExcelWriter('Avg_Overflow.xlsx')
 dfavg.to_excel(writer,'Sheet1')

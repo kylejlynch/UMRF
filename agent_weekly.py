@@ -5,10 +5,9 @@ import pandas as pd
 import numpy as np
 import os
 import re
+from sensitive import emailcredentials
 
-user = 'myemail@domain.com'
-password = 'password'
-imap_url = 'imap.gmail.com'
+user, password, imap_url = emailcredentials()
 
 def get_body(msg) :
     if msg.is_multipart() :

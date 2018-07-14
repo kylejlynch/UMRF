@@ -9,8 +9,8 @@ conn2 = sqlite3.connect('UMRF_SQL_Weekly.sqlite')
 cur2 = conn2.cursor()
 
 dailydf = pd.read_sql_query('''SELECT * FROM "AllData"''', conn)
-
 weeklydf = pd.read_sql_query('''SELECT * FROM "AllData"''', conn2)
+
 dailydf['FirstName'] = dailydf['FirstName'].replace(to_replace='Nicolas', value='Nicholas')
 dailydf['LastName'] = dailydf['LastName'].replace(to_replace='Macklin', value='Maclin')
 weeklydf['FirstName'] = weeklydf['FirstName'].replace(to_replace='Nicolas', value='Nicholas')

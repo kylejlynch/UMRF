@@ -40,8 +40,8 @@ def callpattern() :
         #extract data
         soup = BeautifulSoup(emlhtml, 'lxml')
         dt = re.findall('for ([0-9-]+)', soup.text)[0]
-        year, day, month = dt.split('-')
-        day = calendar.day_name[calendar.weekday(int(year), int(day), int(month))]
+        year, month, day = dt.split('-')
+        day = calendar.day_name[calendar.weekday(int(year), int(month), int(day))]
         if dt not in datelist :
             datelist.append(dt)
         

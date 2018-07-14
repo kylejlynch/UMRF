@@ -1,3 +1,15 @@
-/Neurite_data
-/img
+sensitive.py
 *.png
+*.json
+*.csv
+*.xlsx
+*.pptx
+*.sql
+*.sqlite
+*.html
+data/
+Call Patterns/
+Agent_Daily/
+Agent Stats/
+__pycache__/
+.ipynb_checkpoints/

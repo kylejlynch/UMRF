@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+import numpy as np
 
 '''
 Math
@@ -13,6 +14,23 @@ def convtime(t) :
     _hrs = int(h) + int(m)/60 + int(s)/3600
     _min = int(h)*60 + int(m) + int(s)/60
     return '{:.3f}'.format(_hrs),'{:.3f}'.format(_min)
+
+def ampmtime(t) :
+    t = str(t)
+    h,m,s = re.split(':',t)
+    if int(h) == 00 :
+        h = 12
+        ampm = '{0}:{1} AM'.format(h,m)
+    elif int(h) < 12 :
+        ampm = '{0}:{1} AM'.format(h,m)
+    elif int(h) > 12 :
+        h = int(h) - 12
+        ampm = '0{0}:{1} PM'.format(h,m)
+    elif int(h) == 12 :
+        ampm = '{0}:{1} PM'.format(h,m)
+    else:
+        ampm = t
+    return ampm
 
 def w_avg(values,weights=None) :
     numer = 0

@@ -3,12 +3,13 @@ import pandas as pd
 import sqlite3
 from datetime import date
 
-empid = [3585526,5290664,5289255,5289265,5289275,5290667,5290668,3585532,5291632,5289271,891005,3654246,3654442,3654247,3654240,3654239,3654441,3617735]
+empid = [3585526,5290664,5289255,5289265,5289275,5290667,5290668,3585532,5291632,5289271,891005,3654246,3654442,3654247,3654240,3654239,3654441,3617735,5289261]
+dates = pd.date_range(start='2018-06-17', end='2018-07-08', freq='D')
 def agentdelete() :
     conn = sqlite3.connect('UMRF_SQL_Weekly.sqlite')
     conn2 = sqlite3.connect('UMRF_SQL_Daily.sqlite')
     cur = conn.cursor()
-    cur2 = conn.cursor()
+    cur2 = conn2.cursor()
     
     weeklydf = pd.read_sql_query('''SELECT * FROM "AllData"''', conn)
     dailydf = pd.read_sql_query('''SELECT * FROM "AllData"''', conn2)
@@ -16,7 +17,7 @@ def agentdelete() :
     if date.today().weekday() != 0 :
         for emp in empid :
             dailydf = dailydf[dailydf['Employee Number'] != emp]
-    
+
     if date.today().weekday() == 0 :
         for emp in empid :
             dailydf = dailydf[dailydf['Employee Number'] != emp]
