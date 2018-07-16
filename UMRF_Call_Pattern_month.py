@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+'''
+Retrieves number of offered calls, accepted calls, and overflow (missed) calls over a given period
+and averages them per 30 min time block. Also calculates the standard deviation for both accepted and overflow calls.
+Predicts the minimum number of  agents needed to accept all calls (minimize overflow calls as well as labor cost)
+based on previous month.
+'''
 import pandas as pd
 import numpy as np
 import os
@@ -8,12 +14,6 @@ import email
 from datetime import date
 import calendar
 import string
-'''
-Retrieves number of offered calls, accepted calls, and overflow (missed) calls over a given period
-and averages them per 30 min time block. Also calculates the standard deviation for both accepted and overflow calls.
-Predicts the minimum number of  agents needed to accept all calls (minimize overflow calls as well as labor cost)
-based on previous month.
-'''
 
 pd.set_option('display.max_columns', 100)
 
