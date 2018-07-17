@@ -1,0 +1,3366 @@
+Received: from CY1PR0401MB1340.namprd04.prod.outlook.com
+ (2603:10b6:903:ae::21) by DM2PR0401MB1344.namprd04.prod.outlook.com with
+ HTTPS via CY4PR22CA0059.NAMPRD22.PROD.OUTLOOK.COM; Mon, 23 Apr 2018 14:14:53
+ +0000
+Received: from MWHPR04CA0085.namprd04.prod.outlook.com (2603:10b6:301:3a::26)
+ by CY1PR0401MB1340.namprd04.prod.outlook.com (2a01:111:e400:4c5b::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.20.696.12; Mon, 23
+ Apr 2018 14:14:52 +0000
+Received: from CY1NAM02FT063.eop-nam02.prod.protection.outlook.com
+ (2a01:111:f400:7e45::207) by MWHPR04CA0085.outlook.office365.com
+ (2603:10b6:301:3a::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.696.13 via Frontend
+ Transport; Mon, 23 Apr 2018 14:14:52 +0000
+Authentication-Results: spf=pass (sender IP is 199.81.212.189)
+ smtp.mailfrom=fedex.com; memphis.edu; dkim=pass (signature was verified)
+ header.d=fedex.com;memphis.edu; dmarc=pass action=none header.from=fedex.com;
+Received-SPF: Pass (protection.outlook.com: domain of fedex.com designates
+ 199.81.212.189 as permitted sender) receiver=protection.outlook.com;
+ client-ip=199.81.212.189; helo=mx33.infosec.fedex.com;
+Received: from mx33.infosec.fedex.com (199.81.212.189) by
+ CY1NAM02FT063.mail.protection.outlook.com (10.152.75.161) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.20.696.11 via Frontend Transport; Mon, 23 Apr 2018 14:14:51 +0000
+DKIM-Signature: v=1; a=rsa-sha256; d=fedex.com; s=wtc; c=relaxed/relaxed;
+	q=dns/txt; i=@fedex.com; t=1524492889;
+	h=From:Sender:Reply-To:Subject:Date:Message-ID:To;
+	bh=0PFR2TkpcuA0l4uA1s2ahgNRJ1dkzwTajWJnJnzyha8=;
+	b=ReSxyVzj1CYSQlxvGo6s3do+xWDdkFw8EIQWDnXITL6dXllDSaHQk0sUxvNg+4As
+	2wRImUuKIi5o42ICqeoND2YnbeYR5JS82HqHSK8oNsKkM2DHP4OjM5MD2EwvPn6v
+	85NTqzKxbIHgGpu0tZK1LDIopQXG483pOHy6ztC2Y+c=;
+X-AuditID: c751d4bd-905ff70000001486-89-5addea58d5bd
+Received: from pvma00011.prod.fedex.com (pvma00011.prod.fedex.com [204.135.242.202])
+	(using TLS with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(Client did not present a certificate)
+	by mx33.infosec.fedex.com (FedEx MX) with SMTP id 82.65.05254.85AEDDA5; Mon, 23 Apr 2018 09:14:48 -0500 (CDT)
+Received: from PWN60303.corp.ds.fedex.com (pwn60303.prod.fedex.com [10.236.250.116])
+	by pvma00011.prod.fedex.com (Sentrion-MTA-4.3.2/Sentrion-MTA-4.3.2) with ESMTP id w3NEEk0r021882
+	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=FAIL);
+	Mon, 23 Apr 2018 14:14:48 GMT
+Received: from PWN00978.corp.ds.fedex.com (204.135.45.50) by
+ PWN60303.corp.ds.fedex.com (10.236.250.116) with Microsoft SMTP Server (TLS)
+ id 14.3.361.1; Mon, 23 Apr 2018 14:14:41 +0000
+Received: from C0000290.corp.ds.fedex.com (204.135.14.15) by
+ PWN00978.corp.ds.fedex.com (204.135.45.50) with Microsoft SMTP Server (TLS)
+ id 14.3.361.1; Mon, 23 Apr 2018 14:14:34 +0000
+Received: from NAM01-BY2-obe.outbound.protection.outlook.com (216.32.181.184)
+ by O365smtp.prod.cloud.fedex.com (204.135.14.15) with Microsoft SMTP Server
+ (TLS) id 14.3.361.1; Mon, 23 Apr 2018 14:14:04 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=myfedex.onmicrosoft.com; s=selector1-fedex-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=0PFR2TkpcuA0l4uA1s2ahgNRJ1dkzwTajWJnJnzyha8=;
+ b=WnmusmwnW/q9Wje9wxLpR6T+PcKjrrsSV6pEM6/5qg5/f+7pGuTk0kE5I7baVY4N5cmUYRhANpJd2WmBJ//3AKlRfe5gVL2EUD+XE8eeChEKY+5ogK20D9175tDSqEjz1zbZclzX3/Tyif+KZANZ7BXy80om7sDaeAkmFxsAojw=
+Received: from BN6PR12MB1939.namprd12.prod.outlook.com (10.175.102.21) by
+ BN6PR12MB1121.namprd12.prod.outlook.com (10.168.226.135) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.696.12; Mon, 23 Apr 2018 14:13:24 +0000
+Received: from BN6PR12MB1939.namprd12.prod.outlook.com
+ ([fe80::2d88:a841:1ea0:5458]) by BN6PR12MB1939.namprd12.prod.outlook.com
+ ([fe80::2d88:a841:1ea0:5458%4]) with mapi id 15.20.0696.016; Mon, 23 Apr 2018
+ 14:13:24 +0000
+From: "Jasmine Sankhon (OSV)" <jasmine.sankhon.osv@fedex.com>
+To: "jsankhon@umrfventures.com" <jsankhon@umrfventures.com>,
+        "kjlynch@memphis.edu" <kjlynch@memphis.edu>
+Subject: FW: UMRF Calls Arrival Pattern for 2018-04-19
+Thread-Topic: UMRF Calls Arrival Pattern for 2018-04-19
+Thread-Index: AQHT2KRD9SLfolwwskarWaTIFPn6g6QOaRUg
+Date: Mon, 23 Apr 2018 14:13:24 +0000
+Message-ID: <BN6PR12MB1939E7D21195014C988C7AF8AC890@BN6PR12MB1939.namprd12.prod.outlook.com>
+References: <201804201235.w3KCZ2RC016780@fss1-new.web.fedex.com>
+In-Reply-To: <201804201235.w3KCZ2RC016780@fss1-new.web.fedex.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: umrfventures.com; dkim=none (message not
+ signed) header.d=none;umrfventures.com; dmarc=none action=none
+ header.from=fedex.com;
+x-originating-ip: [192.189.187.104]
+x-ms-publictraffictype: Email
+X-Microsoft-Exchange-Diagnostics-untrusted: 1;BN6PR12MB1121;7:ev/SF+dDrIGg+2kOOZxHBjZTjoYoo217MRw2ezQUk4cIX4Y10UFeS5FIvjbNb4zhwNM1QtX91PUVMOXaLAOfsHDgqo9egFs4regTV8OxLGBELyd/kH0T1FKUAchebdlmGFE+D15bwsNyrE7sx7S+xvbDGo/k7QxJ9APXXgfHB8Cp4+HMV1v4UhipfY3C1J9RKQ/uSQHkOPtgbqPY2fi6YZgs814gQ/NMH9+S26Ef/nCDe4QX3TNXdPRS6l8Stpqn
+X-Microsoft-Antispam-Untrusted: UriScan:;BCL:0;PCL:0;RULEID:(7020095)(4652020)(5600026)(4534165)(4627221)(201703031133081)(201702281549075)(2017052603328)(7153060)(7193020);SRVR:BN6PR12MB1121;
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1121:|CY1PR0401MB1340:
+x-microsoft-antispam-prvs: <BN6PR12MB112186C18D35F7CD1DD535D3AC890@BN6PR12MB1121.namprd12.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(28532068793085)(176871016881987)(21748063052155);UriScan:(28532068793085)(176871016881987)(21748063052155);
+x-exchange-antispam-report-cfa-test: BCL:0;PCL:0;RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(3231232)(944501410)(52105095)(93006095)(93001095)(3002001)(6041310)(20161123558120)(20161123564045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123562045)(20161123560045)(6072148)(201708071742011);SRVR:BN6PR12MB1121;BCL:0;PCL:0;RULEID:;SRVR:BN6PR12MB1121;BCL:0;PCL:0;RULEID:(2401047)(8121501046)(1430374)(1431041)(1432130)(1551027)(9101536074)(3231232)(901025)(902075)(913088)(7045084)(944500087)(944510158)(944921075)(946801078)(946901078)(52103095)(52105095)(52106095)(52401190)(52601095)(52505095)(52406095)(52305095)(52206095)(10201501046)(3002001)(93006095)(93005095)(1610001)(8301001075)(8301003183)(9300000083)(9301000104)(201708071742011);SRVR:CY1PR0401MB1340;BCL:0;PCL:0;RULEID:;SRVR:CY1PR0401MB1340;
+x-forefront-prvs: 06515DA04B
+X-Forefront-Antispam-Report-Untrusted: SFV:NSPM;SFS:(10009020)(346002)(396003)(39380400002)(39860400002)(376002)(366004)(377424004)(39224004)(6436002)(54896002)(81166006)(3846002)(66066001)(74316002)(6116002)(2501003)(5250100002)(476003)(33656002)(7696005)(478600001)(6506007)(53546011)(76176011)(102836004)(10290500003)(446003)(5660300001)(25786009)(2900100001)(26005)(2171002)(7736002)(110136005)(316002)(86362001)(11346002)(2906002)(8666007)(55016002)(229853002)(6306002)(53936002)(3660700001)(2473003)(53946003)(9686003)(3280700002)(8676002)(186003)(8936002)(579004)(559001);DIR:OUT;SFP:1101;SCL:1;SRVR:BN6PR12MB1121;H:BN6PR12MB1939.namprd12.prod.outlook.com;FPR:;SPF:None;LANG:en;MLV:sfv;
+X-Microsoft-Antispam-Message-Info-Original: MPp6N7n8ZeSX5HYrKTalMZQSGR7PujGAP472z00hGqi5RQ9MnB81ySnUR0bCsHBzxAIw7mrIntQzqd9SyQ698hNGlrX2r/yFiDMeLK6WYBLDWuXrTu9Oo1Douf20FT1NbEunuYkBZVu5Ffo5h1dumLuZtt5dsjVuPEjJ+jgo5FEzWaOufEGP2bGKuIdQ72zb
+SpamDiagnosticOutput: 1:99
+SpamDiagnosticMetadata: NSPM
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1939E7D21195014C988C7AF8AC890BN6PR12MB1939namp_"
+X-MS-Office365-Filtering-Correlation-Id: fe6bcd5d-bf71-4dc2-b787-08d5a9249481
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1121
+X-Brightmail-Tracker: H4sIAAAAAAAAA11Ue1BUVRjn3H1dHlcvy7J8bGw02xMMUrSwRhRmHKNphIommi2zBa7LKuzq
+	3sWwphnGEYgFHcRHG+qKqWSGEIqIgo+5kwnIQBr5aHcZBCwUH4hpEEmde+8Cq/98853f77u/
+	8zvf/c4hJcpdQRrSZLYxVrMhRycPkHYUj7THfHjTo5/t6HxjvvNuO0pEyZ3l3Yp3kD5wQYbB
+	tjbNZDS/svDTwOz+rvOK1aM98vw9vZeJAuQoltsRSQI9D1yb0uzIn1TShwl41K61owCc7yDg
+	1rFTcnHRgoDr3qwQF80I7p0uJ8TFRQQFx24LjJQukcDdVpdUZLYQ4Cz4xVvWh2Bz4REpv42c
+	ToCOEyVCrqLXgP2HToLPQ+jXoO/SQbmIx8M/D+4RvEMVHQcX9ibwqZR+Ho5eZ/kKiv4YLm44
+	jlUUWD4Rri7mUX86CUpbiwQNRKvh7/YaQVtCh8HvA7uFHGga9rV0ScQ8FG70T8h4k4h2ICjh
+	7ilE4llwj9XKxFwLF3eXIr4I6AYCHI1NcnHRiODIcKFcrIqGH4+XeWVXQXPLFm+DP4Kevjix
+	fr8E1vdNeFUjoKlxh6wcxVT6OBRzC5zxNKNK4ZzB0PbNgFTEY+HKtq1yMZ8F1XuGJGIeA44J
+	TuqLVyHFQaTOzZ87N9ZkXmFhmczYFUwWkx+back9jPDknHu3+2QTGqxP4hBNIl0QNf6bR6+U
+	Gday63I5ZCQJnYZ6LuqcXhmSYclal21gs5ezeRm5JpY1Wcy6UOr1Llw+Y4qz5uUwrE5F0dcw
+	TE3BGXk5q7BQ8g2Pr5CZ+YzNYWx4jDkEpAR/ltzIf5ZlWPc5Y7WIYhx6ipTqwqiy/it6JW00
+	2JhVDLOasU6yLEnqtBTy8/NTqq2MkclfYcrBir4ugfqE3zjYlxaNhlFRRZihfRnBq5Y6dwAT
+	jyn62iVIf95zgEbFMuYsxmrIs+FT4nu2nMUXjUOZZJAuXHSlZFcbcjHq60hFpfCOqElKdBNC
+	KVwYDZpEBSfh1Mt86ZTKtIt2tB+R26vLyiTkvw0VOA7387FykI81d7fiyAmxk49KqdliZjQR
+	VIcJy4Xyctl55sc7pQmjevnNaB9WsKZRU70at14504fg3WG5Oh73lZs2OPky3UTFBJ4toMKT
+	cG0wfrieaEcINTbIH9zLiN1QUg//xGCgFxSaAZRa+JNebHqrONwKRDfIoL76pwA4P1oXCG0N
+	3Ey4tfd6MLjL9wI03B4AqNlZ+jQccDgi4f6dlmdguGcsBmqar8ZB93euefDtoZ5XobxwQzxs
+	HhmMh76q0Xi4//WGBCi75kqArbXORfBgfe0iaDlmT4I6T+ViqPjv5JvgHuhPhtMj+5ZiqVNL
+	YWxPZyqMuf5IhQO7dr0P9dzZD8Dd2r0MnM6hZTfxZBDTk2EzPNkKFfVVuJufDC81ORnWlcJk
+	eFHvZOSsFCbDC053Q1OA7FERKenff/HCmbb3drqjxtNjJwr0C+4YIzzc8PqISxe2txUtqXjo
+	2UQsVrNVqSmy8TmzK77cKE2MbK67JDUW9l6NvnAif02AdmhJYe9fkftnvUX+Ouf6I8nlxBHn
+	29titqTPP6qNs7YezhyvSEuccaMrVel3KOml6qGfx3PPOoc7Fr4o00nZbMOcaImVNfwP7Gy4
+	VrAGAAA=
+Return-Path: prvs=0651c88874=jasmine.sankhon.osv@fedex.com
+X-MS-Exchange-Organization-ExpirationStartTime: 23 Apr 2018 14:14:51.8239
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: Original Submit
+X-MS-Exchange-Organization-ExpirationInterval: 2:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: Original Submit
+X-MS-Exchange-Organization-Network-Message-Id: fe6bcd5d-bf71-4dc2-b787-08d5a9249481
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: ae145aea-cdb2-446a-b05a-7858dde5ddba:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: CY1NAM02FT063.eop-nam02.prod.protection.outlook.com
+X-Forefront-Antispam-Report: CIP:199.81.212.189;IPV:NLI;CTRY:US;EFV:NLI;SFV:NSPM;SFS:(8156002)(2990300002)(438002)(539002);DIR:INB;SFP:;SCL:1;SRVR:CY1PR0401MB1340;H:mx33.infosec.fedex.com;FPR:;SPF:Pass;LANG:en;MLV:ovrnspm;A:1;MX:1;PTR:pvma00049.prod.fedex.com;
+X-Microsoft-Exchange-Diagnostics: 1;CY1NAM02FT063;1:C6QHHhtev72gXN/NLrgT/oo3MJYjX8TR0kyubPD+G2RonbVvcDRDgE1SnplWstsONBIpllm4p5BqgRErB9pUsz546GbzZCW19kDlCQ6ckR4H4h4d4ZdUkhwDtr8aeFHq
+X-MS-Exchange-Organization-AuthSource: CY1NAM02FT063.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-Microsoft-Antispam: UriScan:;BCL:0;PCL:0;RULEID:(7020095)(5600026)(4605076)(4608076)(4614076)(1401123)(8001031)(1402068)(71702078)(7193020);SRVR:CY1PR0401MB1340;
+X-Microsoft-Exchange-Diagnostics: 1;CY1PR0401MB1340;3:W1rhI5ThMIvE+CT02kKLnAJdrM1D9L6bIV9qAXp+efF+FWfnHwImJd8fqkVqcA8JGmJxQXWDZTSLsfqzZNgAfktOU2X8OE9Zzqq8fH2PA5mYwkek7X1dQ8p327LIT7re98AiK5y5n0jFNUX+OTFmzqYQbFd7CzO46cfbCC4fFtWopl8tmYgRiOwTuhzuCy7JQAMxlVZSF/bi8ugpfrvcUQDOQdq6KeOclAmY7easLbH4dCJRH7B2SuVlDQNt/+LN/3l9HuyrGACF1ryl//hh8u9KlZIn2iY3EVxejecJuJqnQec8hDzfyIGbM4u+PBBLH5DIGGF4vdr2bKxOedb/kZjyJGscX1AcnYbdlWju2/E=;25:5OiZ5oU1X5aE3O7FtC7/ipqJ2FzWjc+OXWOu8wWoSYxVhDWQW6Ud2toSGFycSCgHNUkx9Uy+ryAUyvpyk1Oo5Fv8N01ocKXHNbacGOddQTN0Dnl2Cyd8e2DzezbjpZKsX5mbQD8xHUB5Qrtp4MmnmpnB5zraLToTzsf3kviudHtHpIdmuqcoksv5iTgmoSqeG7hAcpmSoaUU+DArI3rf7dlgy22HpH9/6Jgb0+F09TVvm5/T6WFEGt9FbGQPSfIpFpUr0CKMBbVEoybK/Cfw4Lt0HoW9i9C+owqY+F0sGd2+pMZ9OhM+3XJf5TgdlKl5gBJiCK9AEeC3Xn4+ceDQWQ==
+X-Microsoft-Exchange-Diagnostics: 1;CY1PR0401MB1340;31:ZFS831JRdrLWeZC+lWN+19utuKuK/mfhcGgrKcOdo+tNJNynGjGMRI33PYtOwrLyRy2qDfG8mmxxBODu+csB9AeHp5GTCze0/Th+GFn5XoOxeZb/CRouvAEFdh/4jvTFw9E+oM+5rZ5YdB5vjCGz7xUhKzpyPRdg9Wn3UHrb12rKQ+l066005IQwtm4wu/ZYUpfWpmHSDrYLq2haPb/akKYOa5rnwzYQoBAkpVXMJXs=;20:98qWAgVp6KArSsKbfhWdQQ0eW7FaUJFtJvNw6uJGrukHZbs7q9tW/6+eHQLZBuhrWP8jHUM7VetoRdl+tdYQGsbhfIoa3vDumHEj+6lCJG28xj3TacTD+uRP9PyoCOphVF/IaaWArU6L7hPaeWxvBUKtgXg+XI3aPgHlQS3BRdW9BMRirfXQUO0I+H8WrufengZjVVrWuyPl0vpAQ5+L6rETU+6U6MJT86dIB6Az4Spmv6/vlYLpF5BUjYl9ROmhfLLW47jqkQEoRTKL8WsAxvADh1OiK7eq3XKz1NkFFmKpNv/iuBcEPvxLUzeN7429zwkAFytAm2E1lCdXuF/qEeBRp/2r1CGK1NOQgOPN2h6uUx+Wky3zsrUSv2vFZbh6StwIbxbNGXs0Ww3XRUG55Xdla77cXYhGq9lYstulamoBaufX53w8UV7UguzAArjzj0b6Vja67gvCFLvciDtJR9buRA0jr73+zmIS19mAEyhM2wDSDuy+wIk40+HjRdi/
+X-Microsoft-Exchange-Diagnostics: 1;CY1PR0401MB1340;4:MJmN0wUr+/uABsQWirm9Y9oWPQjPSwGPh2PFPTP6dx13GfwHjoD6/acOyfDrkDkrgTU4HL9FI7Xa6b0M+J4zM2vYje36eyLbPTIQY+K4BS1lS04p8IwlYxuwH+BGSQpAlbGqVx011oZeEwwehuNewk2Hxyy226Ufqj6/HoICN8XohDdzfh6Myup6CkO67ULpP+0uK+FJWU9BfuxItHFwi3YxbUwQIVLXKrsb3adgYVBD++JGQ1Pilo6XgHRtN190CrzPFNEqXFLJXprwWE8zSbqdUbPYde1uSPiB5Z/p2fEwZnZzOX1qtmHe8nvZM38QY2ljxTnlqlwjw6vjCl61GoRFXMZjSiKdo1UiQUVd60PRzXInFqbmjwUQhk+H3vkj;23:jWk7Eu+GMwV7x0wIc7by6k1Cg0lwWMKQ0ucJoAK6qTsJOT92TYJzu5P86R22mEJlr1y6oJIti9MEZAXzfWA626B2DwUn69oqIbosSxGaSOfMdhu9wPFBsm6c1a2oSFBepa81QYXgVkwVhQobXrq0aLnBpX7bFqgk+PzG3Dq2eNbGttXPI7sUk8GwEMzWVY4/SVnP2c7lwhE+1dkcH4zvdlh21CmacTrxpCYDvVrfFVQ=
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam-Message-Info: R0W42AhLEzuObzXoamJafgxcIft3iAC0gl7V4tHvzmowwY2QmL2WKI8nFKOlIi9nDS+6JfUr1whXzh1jTpAdeF3bh01Ggp8KP4xfYATsx6EBZ8+9akoCXi5EWdN106VZHqPDBwb2fsWItqf3JBr2ZB+o9fP+A/v8AWaH8dAZoUlKKaD7LOeqk2CBy5KdzHEDu7Wk8LMNL8zmoOOj6PBCbX1e6chqOJfezG3R7vXECAJ25AoMhQ/pJzLy38OPmfjyVxo3UBrf7efNFity5vtSGHFE7+xtlmYYXOnMhaV9HlVQdunmN9XTAT4MKUaLiXNJprqDucLm560t5vpTTTHt8pvDmXtIEfqBwRf14k6AZp5Lze/+syzhDTTtmnL4oIcfjvWqdMrUvmYcC+YfEf+ZPDlUnyBKtA/b9uNie4u26Aorm9mIvWh8b6B0xzXDc6gFP7yyvJQ2ZArqAwyp+ELVxQ==
+X-Microsoft-Exchange-Diagnostics: 1;CY1PR0401MB1340;6:zwkfbBpa9mGCAtLwaNU0xW3v83jgKV6sDLTGwE/o/zd5b+S47Nw+WgmVbsCF9YPAfN6kYXs6AOGPBeIqrp1F5zH5Moq0K+dhdbWgjwtYw95Imj5SRgkH0KCcxlYiv06GmNH4/gdHdD2RsOyUdCsxFnx8FXUjKvPbiAUq7uXx7RsOQQ4uZomCzXOpHHCwO/5AK9Gef/RcvquSyNO2qr8VN2E0MdYjtuoa1N9WugFZGx+sip8jtB81xU4KROcdRBG4WUKvL+Yo+WOjrYuH1mhgu6Z4Qc3vq3V3PcafWCsnxuSmyYQpO3yRcHH4/1JiDuTGCYUX35Ua55038wG2VqVcQEsWxiI4fxZGab7vyOB5H/uTrlzjn5zAFl/MwIrx22RXqsty6eZigrEv8xgU55L9JSsCm0YiF6GsU7ZO6sFLelNu6A7nqB/H0CcbS5vK4qhxpIr4ueigQ9veirPKZu3pSg==;5:6KEl3lXUEEjO6roN+dBcTLdXT8ze1c6K//LVdiFriVov8MitrIXL7BRZVo79d4Rd++F44j3W5l5JHG+QDodGGCeHsluRnf7JIUqwKrQe+jZKkiq83pKciQe5AqwB4dpSt/76HzeAWVXNrP9eR4OPjcGfVoVqBXFGDl1I738qBUU=;24:aNQULXYVZjiFfUfeFW6EeydeHUGOs7txuOBKAhBe2xXQnCuelR/EFLWqQJdG1t6084CFnlyD3W4c2w5Cwxo7bnY0ip7rquuGzUZLn5wwTIk=
+X-Microsoft-Exchange-Diagnostics: 1;CY1PR0401MB1340;7:zJ8qZ/yGXd6PzUSepoksBPkMH3oSaGgKeF5EiOfKCVqmxdQO+mNULKjfs0AzANhY8XExtgNSFi+dpnb9XbVpy5mwaxQWNuKT37BwpEpMAOMSn7G8ZmZa6NOJLTOInegkGijaEv7K7anVu0q+c9cviltwuhXJEyKc6eShBZIsazVnha6LMyCmT+96LE3pqjzerIaxyllre7FNdT6ukEtryt0tN6MaKDE+oBy2CRRBLYfC9A+Bo4H9az3SXQLFTbc+
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2018 14:14:51.1363
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe6bcd5d-bf71-4dc2-b787-08d5a9249481
+X-MS-Exchange-CrossTenant-Id: ae145aea-cdb2-446a-b05a-7858dde5ddba
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR0401MB1340
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.7568224
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.0696.016
+X-Microsoft-Exchange-Diagnostics:
+	1;DM2PR0401MB1344;27:m7y6XliAfbYlKnTNHstizjUONkdCxSNaS29K49xhxmJxnRdBqrz6JvsDL/8t4df/Y9kzdZX+1Npcxpzf9r2P/6VSWH5npLtAPCgfbGSDEadPDiZ+UQTEg+AZBxeZVqKi
+X-Microsoft-Antispam-Message-Info:
+	F8xFkixvT3abmVr3Ehxt3Fr+5exkpTtscbChGYv2OIXjTQbW5W7jQ8T+krBcKC6bxeVR4M3DVm6HDkp5m3qUFlN2TIRqU/z39x9O/jDTUyl/Ria3HS7wiatyjGnV4Jm+6M3BzhoIwlFy9AXMrktV7qPqlvtTQiYC+QYHYDXxjciprrhFDBz8xNeDyGQyb3qOl60fzNF0V1yde31V7bk3nkRbh1X4Q2VEoBpOjng1rBtCtPWpKDrGbis8ICifI4GBXvciyOIOS0n1IVQUuSED4QczyuA1ugAMfE0zC3P2WOOriX3y31dJszPM5hLQU33KDM1vxKlSz28c+KAhwqnFcH7CAYc/v/PZOjghxXvpND6XlJ9IcCIokgUA551VL7RrtHbNA+4l4mAE+UYcjWxBEyoMJfUtBouoPib4jgzhtKNoChgOIAn0hAbDGcmXPHtFLx/RHdueLrE2hqkZNnSM0Q==
+MIME-Version: 1.0
+
+--_000_BN6PR12MB1939E7D21195014C988C7AF8AC890BN6PR12MB1939namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+X-Microsoft-Exchange-Diagnostics:
+	1;DM2PR0401MB1344;27:m7y6XliAfbYlKnTNHstizjUONkdCxSNaS29K49xhxmJxnRdBqrz6JvsDL/8t4df/Y9kzdZX+1Npcxpzf9r2P/6VSWH5npLtAPCgfbGSDEadPDiZ+UQTEg+AZBxeZVqKi
+X-Microsoft-Antispam-Message-Info:
+	F8xFkixvT3abmVr3Ehxt3Fr+5exkpTtscbChGYv2OIXjTQbW5W7jQ8T+krBcKC6bxeVR4M3DVm6HDkp5m3qUFlN2TIRqU/z39x9O/jDTUyl/Ria3HS7wiatyjGnV4Jm+6M3BzhoIwlFy9AXMrktV7qPqlvtTQiYC+QYHYDXxjciprrhFDBz8xNeDyGQyb3qOl60fzNF0V1yde31V7bk3nkRbh1X4Q2VEoBpOjng1rBtCtPWpKDrGbis8ICifI4GBXvciyOIOS0n1IVQUuSED4QczyuA1ugAMfE0zC3P2WOOriX3y31dJszPM5hLQU33KDM1vxKlSz28c+KAhwqnFcH7CAYc/v/PZOjghxXvpND6XlJ9IcCIokgUA551VL7RrtHbNA+4l4mAE+UYcjWxBEyoMJfUtBouoPib4jgzhtKNoChgOIAn0hAbDGcmXPHtFLx/RHdueLrE2hqkZNnSM0Q==
+
+
+
+From: ESD_Feedback@corp.ds.fedex.com [mailto:ESD_Feedback@corp.ds.fedex.com=
+]
+Sent: Friday, April 20, 2018 7:35 AM
+To: Sami Al-Chokhachi <sami.al-chokhachi@fedex.com>; Jim Withem <james.with=
+em@fedex.com>; Ronald Lunsford <rdlunsford@fedex.com>; 5289267@fedex.com; 5=
+291632@fedex.com
+Subject: UMRF Calls Arrival Pattern for 2018-04-19
+
+
+Abandoned and Offered and ACD Calls for UMRF for 2018-04-19 00:00:00 to 201=
+8-04-19 23:59:59
+Time Interval
+
+SL Abandoned
+
+Abandoned Calls
+
+Calls Offered
+
+ACD Calls
+
+Overflow Calls
+
+12:00-12:30AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+12:30-1:00AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+1:00-1:30AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+1:30-2:00AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+2:00-2:30AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+2:30-3:00AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+3:00-3:30AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+3:30-4:00AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+4:00-4:30AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+4:30-5:! 00AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+5:00-5:30AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+5:30-6:00AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+6:00-6:30AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+6:30-7:00AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+7:00-7:30AM
+
+0
+
+0
+
+10
+
+9
+
+1
+
+7:30-8:00AM
+
+0
+
+0
+
+12
+
+12
+
+0
+
+8:00-8:30AM
+
+0
+
+0
+
+21
+
+11
+
+10
+
+8:30-9:00AM
+
+0
+
+0
+
+24
+
+18
+
+6
+
+9:00-9:30AM
+
+0
+
+0
+
+11
+
+9
+
+2
+
+9:30-10:00AM
+
+0
+
+0
+
+17
+
+14
+
+3
+
+10:00-10:30AM
+
+0
+
+0
+
+10
+
+10
+
+0
+
+10:30-11:00AM
+
+0
+
+0
+23
+
+14
+
+9
+
+11:00-11:3! 0AM
+
+0
+
+0
+
+12
+
+9
+
+3
+
+11:30-12:00PM
+
+0
+
+0
+
+19
+
+9
+
+10
+
+12:00-12:30PM
+
+0
+
+0
+
+9
+
+6
+
+3
+
+12:30-1:00PM
+
+0
+
+1
+
+12
+
+8
+
+3
+
+1:00-1:30PM
+
+1
+
+1
+
+17
+
+10
+
+6
+
+1:30-2:00PM
+
+0
+
+0
+
+44
+
+8
+
+36
+
+2:00-2:30PM
+
+0
+
+0
+
+61
+
+14
+
+47
+
+2:30-3:00PM
+
+0
+
+0
+
+36
+
+12
+
+24
+
+3:00-3:30PM
+
+0
+
+0
+
+27
+
+9
+
+18
+
+3:30-4:00PM
+
+0
+
+0
+
+25
+
+9
+
+16
+
+4:00-4:30PM
+
+0
+
+0
+
+17
+
+9
+
+8
+
+4:30-5:00PM
+
+0
+
+0
+
+7
+
+7
+
+0
+
+5:00-5:30PM
+
+0
+
+0
+
+22
+
+5
+
+17
+
+5:30-6:00PM
+
+0
+
+0
+
+26
+
+7
+
+18
+
+6:00-6:30PM
+
+0
+
+0
+
+11
+
+6
+
+6
+
+6:30-7:00PM
+
+0
+
+0
+
+2
+
+2
+
+0
+
+7:00-7:30PM
+
+0
+
+0
+
+4
+
+3
+
+1
+
+7:30-8:00PM
+
+0
+
+0
+
+5
+
+4
+
+1
+
+8:00-8:30PM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+8:30-9:00PM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+9:00-9:30PM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+9:30-10:00PM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+10:00-10:30PM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+10:30-11:00PM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+11:00-11:30PM
+
+0
+
+0
+
+0
+
+0
+
+0!
+
+11:30-12:00AM
+
+0
+
+0
+
+0
+
+0
+
+0
+
+Total
+
+1
+
+2
+
+484
+
+234
+
+248
+
+Avg.
+
+0.02
+
+0.04
+
+10.08
+
+4.88
+
+5.17
+
+
+
+--_000_BN6PR12MB1939E7D21195014C988C7AF8AC890BN6PR12MB1939namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+X-Microsoft-Exchange-Diagnostics:
+	1;DM2PR0401MB1344;27:m7y6XliAfbYlKnTNHstizjUONkdCxSNaS29K49xhxmJxnRdBqrz6JvsDL/8t4df/Y9kzdZX+1Npcxpzf9r2P/6VSWH5npLtAPCgfbGSDEadPDiZ+UQTEg+AZBxeZVqKi
+X-Microsoft-Antispam-Message-Info:
+	F8xFkixvT3abmVr3Ehxt3Fr+5exkpTtscbChGYv2OIXjTQbW5W7jQ8T+krBcKC6bxeVR4M3DVm6HDkp5m3qUFlN2TIRqU/z39x9O/jDTUyl/Ria3HS7wiatyjGnV4Jm+6M3BzhoIwlFy9AXMrktV7qPqlvtTQiYC+QYHYDXxjciprrhFDBz8xNeDyGQyb3qOl60fzNF0V1yde31V7bk3nkRbh1X4Q2VEoBpOjng1rBtCtPWpKDrGbis8ICifI4GBXvciyOIOS0n1IVQUuSED4QczyuA1ugAMfE0zC3P2WOOriX3y31dJszPM5hLQU33KDM1vxKlSz28c+KAhwqnFcH7CAYc/v/PZOjghxXvpND6XlJ9IcCIokgUA551VL7RrtHbNA+4l4mAE+UYcjWxBEyoMJfUtBouoPib4jgzhtKNoChgOIAn0hAbDGcmXPHtFLx/RHdueLrE2hqkZNnSM0Q==
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"ProgId" content=3D"Word.Document">
+<meta name=3D"Generator" content=3D"Microsoft Word 15">
+<meta name=3D"Originator" content=3D"Microsoft Word 15">
+<link rel=3D"File-List" href=3D"cid:filelist.xml@01D3DAE3.465EB6C0"><!--[if=
+ gte mso 9]><xml>
+<o:OfficeDocumentSettings>
+<o:AllowPNG/>
+</o:OfficeDocumentSettings>
+</xml><![endif]--><link rel=3D"themeData" href=3D"~~themedata~~"><link rel=
+=3D"colorSchemeMapping" href=3D"~~colorschememapping~~"><!--[if gte mso 9]>=
+<xml>
+<w:WordDocument>
+<w:View>Normal</w:View>
+<w:TrackMoves/>
+<w:TrackFormatting/>
+<w:EnvelopeVis/>
+<w:ValidateAgainstSchemas/>
+<w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+<w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+<w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+<w:DoNotPromoteQF/>
+<w:LidThemeOther>EN-US</w:LidThemeOther>
+<w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+<w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+<w:Compatibility>
+<w:DoNotExpandShiftReturn/>
+<w:BreakWrappedTables/>
+<w:SplitPgBreakAndParaMark/>
+<w:EnableOpenTypeKerning/>
+</w:Compatibility>
+<m:mathPr>
+<m:mathFont m:val=3D"Cambria Math"/>
+<m:brkBin m:val=3D"before"/>
+<m:brkBinSub m:val=3D"&#45;-"/>
+<m:smallFrac m:val=3D"off"/>
+<m:dispDef/>
+<m:lMargin m:val=3D"0"/>
+<m:rMargin m:val=3D"0"/>
+<m:defJc m:val=3D"centerGroup"/>
+<m:wrapIndent m:val=3D"1440"/>
+<m:intLim m:val=3D"subSup"/>
+<m:naryLim m:val=3D"undOvr"/>
+</m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<w:LatentStyles DefLockedState=3D"false" DefUnhideWhenUsed=3D"false" DefSem=
+iHidden=3D"false" DefQFormat=3D"false" DefPriority=3D"99" LatentStyleCount=
+=3D"371">
+<w:LsdException Locked=3D"false" Priority=3D"0" QFormat=3D"true" Name=3D"No=
+rmal"/>
+<w:LsdException Locked=3D"false" Priority=3D"9" QFormat=3D"true" Name=3D"he=
+ading 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
+henUsed=3D"true" QFormat=3D"true" Name=3D"heading 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
+henUsed=3D"true" QFormat=3D"true" Name=3D"heading 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
+henUsed=3D"true" QFormat=3D"true" Name=3D"heading 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
+henUsed=3D"true" QFormat=3D"true" Name=3D"heading 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
+henUsed=3D"true" QFormat=3D"true" Name=3D"heading 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
+henUsed=3D"true" QFormat=3D"true" Name=3D"heading 7"/>
+<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
+henUsed=3D"true" QFormat=3D"true" Name=3D"heading 8"/>
+<w:LsdException Locked=3D"false" Priority=3D"9" SemiHidden=3D"true" UnhideW=
+henUsed=3D"true" QFormat=3D"true" Name=3D"heading 9"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index 4"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index 5"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index 6"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index 7"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index 8"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index 9"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"toc 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"toc 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"toc 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"toc 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"toc 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"toc 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"toc 7"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"toc 8"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"toc 9"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Normal Indent"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"footnote text"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"annotation text"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"header"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"footer"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"index heading"/>
+<w:LsdException Locked=3D"false" Priority=3D"35" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" QFormat=3D"true" Name=3D"caption"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"table of figures"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"envelope address"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"envelope return"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"footnote reference"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"annotation reference"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"line number"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"page number"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"endnote reference"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"endnote text"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"table of authorities"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"macro"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"toa heading"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Bullet"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Number"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List 4"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List 5"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Bullet 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Bullet 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Bullet 4"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Bullet 5"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Number 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Number 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Number 4"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Number 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"10" QFormat=3D"true" Name=3D"T=
+itle"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Closing"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Signature"/>
+<w:LsdException Locked=3D"false" Priority=3D"1" SemiHidden=3D"true" UnhideW=
+henUsed=3D"true" Name=3D"Default Paragraph Font"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Body Text"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Body Text Indent"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Continue"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Continue 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Continue 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Continue 4"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"List Continue 5"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Message Header"/>
+<w:LsdException Locked=3D"false" Priority=3D"11" QFormat=3D"true" Name=3D"S=
+ubtitle"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Salutation"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Date"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Body Text First Indent"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Body Text First Indent 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Note Heading"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Body Text 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Body Text 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Body Text Indent 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Body Text Indent 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Block Text"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Hyperlink"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"FollowedHyperlink"/>
+<w:LsdException Locked=3D"false" Priority=3D"22" QFormat=3D"true" Name=3D"S=
+trong"/>
+<w:LsdException Locked=3D"false" Priority=3D"20" QFormat=3D"true" Name=3D"E=
+mphasis"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Document Map"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Plain Text"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"E-mail Signature"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Top of Form"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Bottom of Form"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Normal (Web)"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Acronym"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Address"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Cite"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Code"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Definition"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Keyboard"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Preformatted"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Sample"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Typewriter"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"HTML Variable"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Normal Table"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"annotation subject"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"No List"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Outline List 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Outline List 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Outline List 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Simple 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Simple 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Simple 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Classic 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Classic 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Classic 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Classic 4"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Colorful 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Colorful 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Colorful 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Columns 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Columns 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Columns 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Columns 4"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Columns 5"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Grid 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Grid 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Grid 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Grid 4"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Grid 5"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Grid 6"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Grid 7"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Grid 8"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table List 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table List 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table List 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table List 4"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table List 5"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table List 6"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table List 7"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table List 8"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table 3D effects 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table 3D effects 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table 3D effects 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Contemporary"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Elegant"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Professional"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Subtle 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Subtle 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Web 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Web 2"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Web 3"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Balloon Text"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" Name=3D"Table Grid"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"true=
+" Name=3D"Table Theme"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" Name=3D"Placeholder Te=
+xt"/>
+<w:LsdException Locked=3D"false" Priority=3D"1" QFormat=3D"true" Name=3D"No=
+ Spacing"/>
+<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading"/>
+<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List"/>
+<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid"/>
+<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1"/=
+>
+<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2"/=
+>
+<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List"/>
+<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading"/=
+>
+<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List"/>
+<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid"/>
+<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
+nt 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
+1"/>
+<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
+1"/>
+<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
+ccent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
+ccent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
+nt 1"/>
+<w:LsdException Locked=3D"false" SemiHidden=3D"true" Name=3D"Revision"/>
+<w:LsdException Locked=3D"false" Priority=3D"34" QFormat=3D"true" Name=3D"L=
+ist Paragraph"/>
+<w:LsdException Locked=3D"false" Priority=3D"29" QFormat=3D"true" Name=3D"Q=
+uote"/>
+<w:LsdException Locked=3D"false" Priority=3D"30" QFormat=3D"true" Name=3D"I=
+ntense Quote"/>
+<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
+nt 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
+nt 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
+nt 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
+nt 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 1=
+"/>
+<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
+ccent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
+nt 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
+nt 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
+nt 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
+2"/>
+<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
+2"/>
+<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
+ccent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
+ccent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
+nt 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
+nt 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
+nt 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
+nt 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
+nt 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 2=
+"/>
+<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
+ccent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
+nt 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
+nt 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
+nt 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
+3"/>
+<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
+3"/>
+<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
+ccent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
+ccent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
+nt 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
+nt 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
+nt 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
+nt 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
+nt 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 3=
+"/>
+<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
+ccent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
+nt 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
+nt 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
+nt 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
+4"/>
+<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
+4"/>
+<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
+ccent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
+ccent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
+nt 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
+nt 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
+nt 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
+nt 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
+nt 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 4=
+"/>
+<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
+ccent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
+nt 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
+nt 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
+nt 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
+5"/>
+<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
+5"/>
+<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
+ccent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
+ccent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
+nt 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
+nt 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
+nt 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
+nt 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
+nt 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 5=
+"/>
+<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
+ccent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
+nt 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
+nt 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"60" Name=3D"Light Shading Acce=
+nt 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"61" Name=3D"Light List Accent =
+6"/>
+<w:LsdException Locked=3D"false" Priority=3D"62" Name=3D"Light Grid Accent =
+6"/>
+<w:LsdException Locked=3D"false" Priority=3D"63" Name=3D"Medium Shading 1 A=
+ccent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"64" Name=3D"Medium Shading 2 A=
+ccent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"65" Name=3D"Medium List 1 Acce=
+nt 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"66" Name=3D"Medium List 2 Acce=
+nt 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"67" Name=3D"Medium Grid 1 Acce=
+nt 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"68" Name=3D"Medium Grid 2 Acce=
+nt 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"69" Name=3D"Medium Grid 3 Acce=
+nt 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"70" Name=3D"Dark List Accent 6=
+"/>
+<w:LsdException Locked=3D"false" Priority=3D"71" Name=3D"Colorful Shading A=
+ccent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"72" Name=3D"Colorful List Acce=
+nt 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"73" Name=3D"Colorful Grid Acce=
+nt 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"19" QFormat=3D"true" Name=3D"S=
+ubtle Emphasis"/>
+<w:LsdException Locked=3D"false" Priority=3D"21" QFormat=3D"true" Name=3D"I=
+ntense Emphasis"/>
+<w:LsdException Locked=3D"false" Priority=3D"31" QFormat=3D"true" Name=3D"S=
+ubtle Reference"/>
+<w:LsdException Locked=3D"false" Priority=3D"32" QFormat=3D"true" Name=3D"I=
+ntense Reference"/>
+<w:LsdException Locked=3D"false" Priority=3D"33" QFormat=3D"true" Name=3D"B=
+ook Title"/>
+<w:LsdException Locked=3D"false" Priority=3D"37" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" Name=3D"Bibliography"/>
+<w:LsdException Locked=3D"false" Priority=3D"39" SemiHidden=3D"true" Unhide=
+WhenUsed=3D"true" QFormat=3D"true" Name=3D"TOC Heading"/>
+<w:LsdException Locked=3D"false" Priority=3D"41" Name=3D"Plain Table 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"42" Name=3D"Plain Table 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"43" Name=3D"Plain Table 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"44" Name=3D"Plain Table 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"45" Name=3D"Plain Table 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"40" Name=3D"Grid Table Light"/=
+>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
+"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark"=
+/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
+ful"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
+ful"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
+ Accent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
+t 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
+t 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
+t 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
+Accent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
+ful Accent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
+ful Accent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
+ Accent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
+t 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
+t 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
+t 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
+Accent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
+ful Accent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
+ful Accent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
+ Accent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
+t 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
+t 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
+t 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
+Accent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
+ful Accent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
+ful Accent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
+ Accent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
+t 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
+t 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
+t 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
+Accent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
+ful Accent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
+ful Accent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
+ Accent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
+t 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
+t 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
+t 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
+Accent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
+ful Accent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
+ful Accent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"Grid Table 1 Light=
+ Accent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"Grid Table 2 Accen=
+t 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"Grid Table 3 Accen=
+t 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"Grid Table 4 Accen=
+t 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"Grid Table 5 Dark =
+Accent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"Grid Table 6 Color=
+ful Accent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"Grid Table 7 Color=
+ful Accent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
+"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark"=
+/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
+ful"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
+ful"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
+ Accent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
+t 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
+t 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
+t 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
+Accent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
+ful Accent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
+ful Accent 1"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
+ Accent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
+t 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
+t 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
+t 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
+Accent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
+ful Accent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
+ful Accent 2"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
+ Accent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
+t 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
+t 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
+t 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
+Accent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
+ful Accent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
+ful Accent 3"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
+ Accent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
+t 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
+t 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
+t 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
+Accent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
+ful Accent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
+ful Accent 4"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
+ Accent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
+t 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
+t 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
+t 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
+Accent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
+ful Accent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
+ful Accent 5"/>
+<w:LsdException Locked=3D"false" Priority=3D"46" Name=3D"List Table 1 Light=
+ Accent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"47" Name=3D"List Table 2 Accen=
+t 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"48" Name=3D"List Table 3 Accen=
+t 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"49" Name=3D"List Table 4 Accen=
+t 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"50" Name=3D"List Table 5 Dark =
+Accent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"51" Name=3D"List Table 6 Color=
+ful Accent 6"/>
+<w:LsdException Locked=3D"false" Priority=3D"52" Name=3D"List Table 7 Color=
+ful Accent 6"/>
+</w:LatentStyles>
+</xml><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:1;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:0 0 0 0 0 0;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:-536870145 1073786111 1 0 415 0;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:Calibri;
+	mso-fareast-theme-font:minor-latin;}
+a:link, span.MsoHyperlink
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	color:#0563C1;
+	mso-themecolor:hyperlink;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-noshow:yes;
+	mso-style-priority:99;
+	color:#954F72;
+	mso-themecolor:followedhyperlink;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:Calibri;
+	mso-fareast-theme-font:minor-latin;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-style-unhide:no;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	mso-fareast-font-family:Calibri;
+	mso-fareast-theme-font:minor-latin;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	mso-style-noshow:yes;
+	mso-style-unhide:no;
+	mso-ansi-font-size:11.0pt;
+	mso-bidi-font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-fareast-font-family:Calibri;
+	mso-fareast-theme-font:minor-latin;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-family:"Calibri",sans-serif;
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-fareast-font-family:Calibri;
+	mso-fareast-theme-font:minor-latin;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 10]><style>/* Style Definitions */
+table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;}
+</style><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"tab-interv=
+al:.5in">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-theme-fon=
+t:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;mso-bidi-the=
+me-font:minor-bidi;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><a name=3D"_MailEndCompose"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;mso-ascii-theme-font:min=
+or-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times =
+New Roman&quot;;mso-bidi-theme-font:minor-bidi;color:#1F497D"><o:p>&nbsp;</=
+o:p></span></a></p>
+<span style=3D"mso-bookmark:_MailEndCompose"></span>
+<p class=3D"MsoNormal"><a name=3D"_MailOriginal"><b><span style=3D"font-siz=
+e:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;mso-fareast-font-family=
+:&quot;Times New Roman&quot;">From:</span></b></a><span style=3D"mso-bookma=
+rk:_MailOriginal"><span style=3D"font-size:11.0pt;font-family:&quot;Calibri=
+&quot;,sans-serif;mso-fareast-font-family:&quot;Times New Roman&quot;">
+ ESD_Feedback@corp.ds.fedex.com [mailto:ESD_Feedback@corp.ds.fedex.com] <br=
+>
+<b>Sent:</b> Friday, April 20, 2018 7:35 AM<br>
+<b>To:</b> Sami Al-Chokhachi &lt;sami.al-chokhachi@fedex.com&gt;; Jim Withe=
+m &lt;james.withem@fedex.com&gt;; Ronald Lunsford &lt;rdlunsford@fedex.com&=
+gt;; 5289267@fedex.com; 5291632@fedex.com<br>
+<b>Subject:</b> UMRF Calls Arrival Pattern for 2018-04-19<o:p></o:p></span>=
+</span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal"><o:p>&nbs=
+p;</o:p></span></p>
+<p><span style=3D"mso-bookmark:_MailOriginal"><b>Abandoned and Offered and =
+ACD Calls for UMRF for 2018-04-19 00:00:00 to 2018-04-19 23:59:59</b><o:p><=
+/o:p></span></p>
+<table class=3D"MsoNormalTable" border=3D"1" cellpadding=3D"0" style=3D"mso=
+-cellspacing:1.5pt;mso-yfti-tbllook:1184">
+<tbody>
+<tr style=3D"mso-yfti-irow:0;mso-yfti-firstrow:yes">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">Time Inte=
+rval<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">SL Abando=
+ned<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">Abandoned=
+ Calls<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">Calls Off=
+ered<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">ACD Calls=
+<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">Overflow =
+Calls<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:1">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">12:00-12:=
+30AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:2">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">12:30-1:0=
+0AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:3">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1:00-1:30=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:4">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1:30-2:00=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:5">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">2:00-2:30=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:6">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">2:30-3:00=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:7">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">3:00-3:30=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:8">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">3:30-4:00=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:9">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">4:00-4:30=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:10">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">4:30-5:! =
+00AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:11">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">5:00-5:30=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:12">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">5:30-6:00=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:13">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">6:00-6:30=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:14">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">6:30-7:00=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:15">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">7:00-7:30=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:16">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">7:30-8:00=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">12<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">12<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:17">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">8:00-8:30=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">21<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">11<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:18">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">8:30-9:00=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">24<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">18<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">6<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:19">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9:00-9:30=
+AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">11<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">2<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:20">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9:30-10:0=
+0AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">17<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">14<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">3<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:21">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10:00-10:=
+30AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:22">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10:30-11:=
+00AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">23<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">14<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"border:none;padding:.75pt .75pt .75pt .75pt"><span style=3D"ms=
+o-bookmark:_MailOriginal"></span></td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:23">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">11:00-11:=
+3! 0AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">12<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">3<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:24">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">11:30-12:=
+00PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">19<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:25">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">12:00-12:=
+30PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">6<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">3<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:26">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">12:30-1:0=
+0PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">12<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">8<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">3<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:27">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1:00-1:30=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">17<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">6<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:28">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1:30-2:00=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">44<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">8<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">36<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:29">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">2:00-2:30=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">61<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">14<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">47<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:30">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">2:30-3:00=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">36<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">12<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">24<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:31">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">3:00-3:30=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">27<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">18<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:32">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">3:30-4:00=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">25<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">16<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:33">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">4:00-4:30=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">17<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">8<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:34">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">4:30-5:00=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">7<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">7<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:35">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">5:00-5:30=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">22<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">5<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">17<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:36">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">5:30-6:00=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">26<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">7<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">18<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:37">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">6:00-6:30=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">11<o:p></=
+o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">6<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">6<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:38">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">6:30-7:00=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">2<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">2<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:39">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">7:00-7:30=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">4<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">3<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:40">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">7:30-8:00=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">5<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">4<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:41">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">8:00-8:30=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:42">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">8:30-9:00=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:43">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9:00-9:30=
+PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:44">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">9:30-10:0=
+0PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:45">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10:00-10:=
+30PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:46">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10:30-11:=
+00PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:47">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">11:00-11:=
+30PM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0! <o:p><=
+/o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:48">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">11:30-12:=
+00AM<o:p></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:49">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">Total<o:p=
+></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">1<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">2<o:p></o=
+:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">484<o:p><=
+/o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">234<o:p><=
+/o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">248<o:p><=
+/o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+<tr style=3D"mso-yfti-irow:50;mso-yfti-lastrow:yes">
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">Avg.<o:p>=
+</o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0.02<o:p>=
+</o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">0.04<o:p>=
+</o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">10.08<o:p=
+></o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">4.88<o:p>=
+</o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<td style=3D"padding:.75pt .75pt .75pt .75pt">
+<p class=3D"MsoNormal"><span style=3D"mso-bookmark:_MailOriginal">5.17<o:p>=
+</o:p></span></p>
+</td>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+</tr>
+</tbody>
+</table>
+<span style=3D"mso-bookmark:_MailOriginal"></span>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB1939E7D21195014C988C7AF8AC890BN6PR12MB1939namp_--

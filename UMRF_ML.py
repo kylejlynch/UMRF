@@ -23,6 +23,7 @@ from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.svm import SVR
 from sklearn import linear_model
+from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 pd.set_option('display.max_columns', 100)
@@ -33,52 +34,55 @@ def callpattern() :
     datelist = []
     days = {'Monday':int(0), 'Tuesday':int(1), 'Wednesday':int(2), 'Thursday':int(3), 'Friday':int(4), 'Saturday':int(5), 'Sunday':int(6)}
     
-    path = 'Call Patterns/June2018/'
-    listing = os.listdir(path)
-    for file in listing :
-        fh = open(os.path.join(path,file), 'rb')
-        handle = email.message_from_string(fh.read().decode())
-        if handle.is_multipart() :
-            for part in handle.walk() :
-                if part.get_content_type() == 'text/html' :
-                    try :
-                        emlhtml = part.get_payload(decode=True).decode()
-                    except :
-                        emlhtml = part.get_payload(decode=True).decode(encoding='cp1252')
-        else :
-            emlhtml = handle.get_payload()
-        
-        #extract data
-        soup = BeautifulSoup(emlhtml, 'lxml')
-        dt = re.findall('for ([0-9-]+)', soup.text)[0]
-        year, month, day = dt.split('-')
-        day = calendar.day_name[calendar.weekday(int(year), int(month), int(day))]
-        if dt not in datelist :
-            datelist.append(dt)
-        
-            #prep/clean data
-            dfraw = pd.read_html(emlhtml,header=0)[0]
-            dfraw = dfraw.iloc[14:40].reset_index(drop=True)
-            dfraw.replace({'! ':'','!':'','< /td>':'','<tr>':'','< td>':'','< tr>':''}, regex=True,inplace=True)
-            if not 'Overflow Calls' in dfraw :
-                dfraw['Overflow Calls'] = dfraw['Calls Offered'].astype('float') - dfraw['ACD Calls'].astype('float')
-                
-            if dfraw['Overflow Calls'].isnull().values.any() :
-                nanindex = dfraw[dfraw.isnull().any(axis=1)]
-                for i in nanindex.index.values :
-                    dfraw1 = dfraw[['Time Interval']]
-                    dfraw2 = dfraw[['SL Abandoned','Abandoned Calls','Calls Offered','ACD Calls','Overflow Calls']]
-                    dfraw2.iloc[i] = dfraw2.iloc[i].shift(1)
-                    dfraw = pd.concat([dfraw1,dfraw2],axis=1,sort=False)
-                    dfraw['SL Abandoned'] = dfraw['SL Abandoned'].fillna(0)
-            dfraw = dfraw.reset_index(drop=True)
-            dfraw['Day'] = day
-            dfraw = dfraw.reset_index(drop=True)
-            dfraw['Time Interval'] = pd.date_range(start='{} 07:30:00'.format(dt), end='{} 20:00:00'.format(dt), freq='30T').astype('str')
-            dfraw = dfraw.set_index(['Time Interval'])
-            dfraw['Percent_ACD'] = (dfraw['ACD Calls'].astype('int')/dfraw['Calls Offered'].astype('int')).replace([np.inf,-np.inf],np.nan).fillna(0)
-            df = df.append(dfraw)
-        else : continue
+    #path = 'Call Patterns/June2018/'
+    #listing = os.listdir(path)
+    #for file in listing :
+    for root, dirs, files in os.walk('Call Patterns/') :
+        for file in files :
+            #fh = open(os.path.join(path,file), 'rb')
+            fh = open(os.path.join(root,file), 'rb')
+            handle = email.message_from_string(fh.read().decode())
+            if handle.is_multipart() :
+                for part in handle.walk() :
+                    if part.get_content_type() == 'text/html' :
+                        try :
+                            emlhtml = part.get_payload(decode=True).decode()
+                        except :
+                            emlhtml = part.get_payload(decode=True).decode(encoding='cp1252')
+            else :
+                emlhtml = handle.get_payload()
+            
+            #extract data
+            soup = BeautifulSoup(emlhtml, 'lxml')
+            dt = re.findall('for ([0-9-]+)', soup.text)[0]
+            year, month, day = dt.split('-')
+            day = calendar.day_name[calendar.weekday(int(year), int(month), int(day))]
+            if dt not in datelist :
+                datelist.append(dt)
+            
+                #prep/clean data
+                dfraw = pd.read_html(emlhtml,header=0)[0]
+                dfraw = dfraw.iloc[14:40].reset_index(drop=True)
+                dfraw.replace({'! ':'','!':'','< /td>':'','<tr>':'','< td>':'','< tr>':''}, regex=True,inplace=True)
+                if not 'Overflow Calls' in dfraw :
+                    dfraw['Overflow Calls'] = dfraw['Calls Offered'].astype('float') - dfraw['ACD Calls'].astype('float')
+                    
+                if dfraw['Overflow Calls'].isnull().values.any() :
+                    nanindex = dfraw[dfraw.isnull().any(axis=1)]
+                    for i in nanindex.index.values :
+                        dfraw1 = dfraw[['Time Interval']]
+                        dfraw2 = dfraw[['SL Abandoned','Abandoned Calls','Calls Offered','ACD Calls','Overflow Calls']]
+                        dfraw2.iloc[i] = dfraw2.iloc[i].shift(1)
+                        dfraw = pd.concat([dfraw1,dfraw2],axis=1,sort=False)
+                        dfraw['SL Abandoned'] = dfraw['SL Abandoned'].fillna(0)
+                dfraw = dfraw.reset_index(drop=True)
+                dfraw['Day'] = day
+                dfraw = dfraw.reset_index(drop=True)
+                dfraw['Time Interval'] = pd.date_range(start='{} 07:30:00'.format(dt), end='{} 20:00:00'.format(dt), freq='30T').astype('str')
+                dfraw = dfraw.set_index(['Time Interval'])
+                dfraw['Percent_ACD'] = (dfraw['ACD Calls'].astype('int')/dfraw['Calls Offered'].astype('int')).replace([np.inf,-np.inf],np.nan).fillna(0)
+                df = df.append(dfraw)
+            else : continue
     df_call = df.apply(pd.to_numeric, errors='ignore')
     return df_call
 
@@ -138,20 +142,38 @@ def timeblockrange(start,end,exclude=None) :
     year, month, day = start.split('-')
     dayname = calendar.day_name[calendar.weekday(int(year), int(month), int(day))]
     month = calendar.month_name[int(month)]
-df_final = timeblockrange(start='2018-06-01', end='2018-06-26', exclude=[7356014,8569433,5806257])
+df_final = timeblockrange(start='2018-05-01', end='2018-06-26', exclude=[7356014,8569433,5806257])
 
 X = df_final[['Calls Offered','Percent_ACD']].values.reshape(-1,2)
 y = df_final['number_agents'].values.reshape(-1,1)
 
+X_train, X_test, y_train, y_test = train_test_split(X,y,random_state = 0)
+linreg = linear_model.LinearRegression().fit(X_train,y_train)
+print(linreg.score(X_train,y_train))
+print(linreg.score(X_test,y_test))
+linreg = linear_model.Lasso().fit(X_train,y_train)
+print(linreg.score(X_train,y_train))
+print(linreg.score(X_test,y_test))
+linreg = linear_model.BayesianRidge().fit(X_train,y_train)
+print(linreg.score(X_train,y_train))
+print(linreg.score(X_test,y_test))
+svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1).fit(X_train,y_train)
+print(svr_rbf.score(X_train,y_train))
+print(svr_rbf.score(X_test,y_test))
+
+print('##################')
 clf = linear_model.LinearRegression()
 clf.fit(X, y)
-print('Least Squared',clf.predict([[6, 0.95]]))
+print('Least Squared',clf.predict([[30, 0.98]]))
 clf = linear_model.Lasso()
 clf.fit(X, y)
-print('Lasso',clf.predict([[6, 0.95]]))
+print('Lasso',clf.predict([[30, 0.98]]))
 clf = linear_model.BayesianRidge()
 clf.fit(X, y)
-print('Ridge',clf.predict([[6, 0.95]]))
+print('Ridge',clf.predict([[30, 0.98]]))
+svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1)
+y_rbf = svr_rbf.fit(X, y).predict([[30,0.98]])
+print('SVR',y_rbf)
 
 #cmap = cm.get_cmap('gnuplot')
 #scatter = pd.plotting.scatter_matrix(df_final[['Calls Offered','Percent_ACD','number_agents']], c= df_final['number_agents'], marker = 'o', s=40, hist_kwds={'bins':15}, figsize=(9,9), cmap=cmap)
@@ -159,7 +181,7 @@ print('Ridge',clf.predict([[6, 0.95]]))
 # plotting a 3D scatter plot
 fig = plt.figure()
 ax = fig.add_subplot(111, projection = '3d')
-ax.scatter(df_final['Calls Offered'], df_final['number_agents'], df_final['Percent_ACD'], c = df_final['number_agents'], marker = 'o', s=40)
+ax.scatter(df_final['Calls Offered'], df_final['number_agents'], df_final['Percent_ACD'], c = df_final['number_agents'], marker = 'o', s=30)
 ax.set_xlabel('Calls Offered')
 ax.set_ylabel('Number of Agents')
 ax.set_zlabel('Percent ACD')
