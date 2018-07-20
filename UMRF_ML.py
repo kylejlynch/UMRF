@@ -23,8 +23,13 @@ from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.svm import SVR
 from sklearn import linear_model
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.metrics import roc_auc_score
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.kernel_ridge import KernelRidge
 import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsRegressor
+from scipy.optimize import curve_fit
 
 pd.set_option('display.max_columns', 100)
 pd.set_option('display.max_rows', 300)
@@ -32,11 +37,7 @@ pd.set_option('display.max_rows', 300)
 def callpattern() :
     df = pd.DataFrame()
     datelist = []
-    days = {'Monday':int(0), 'Tuesday':int(1), 'Wednesday':int(2), 'Thursday':int(3), 'Friday':int(4), 'Saturday':int(5), 'Sunday':int(6)}
     
-    #path = 'Call Patterns/June2018/'
-    #listing = os.listdir(path)
-    #for file in listing :
     for root, dirs, files in os.walk('Call Patterns/') :
         for file in files :
             #fh = open(os.path.join(path,file), 'rb')
@@ -140,14 +141,17 @@ def timeblockrange(start,end,exclude=None) :
     return df_final
 
     year, month, day = start.split('-')
-    dayname = calendar.day_name[calendar.weekday(int(year), int(month), int(day))]
     month = calendar.month_name[int(month)]
 df_final = timeblockrange(start='2018-05-01', end='2018-06-26', exclude=[7356014,8569433,5806257])
 
-X = df_final[['Calls Offered','Percent_ACD']].values.reshape(-1,2)
+X = df_final[['Calls Offered','Overflow Calls']].values.reshape(-1,2)
 y = df_final['number_agents'].values.reshape(-1,1)
-
+'''
 X_train, X_test, y_train, y_test = train_test_split(X,y,random_state = 0)
+#scaler = MinMaxScaler()
+#X_train = scaler.fit_transform(X_train)
+#X_test = scaler.fit_transform(X_test)
+
 linreg = linear_model.LinearRegression().fit(X_train,y_train)
 print(linreg.score(X_train,y_train))
 print(linreg.score(X_test,y_test))
@@ -157,27 +161,64 @@ print(linreg.score(X_test,y_test))
 linreg = linear_model.BayesianRidge().fit(X_train,y_train)
 print(linreg.score(X_train,y_train))
 print(linreg.score(X_test,y_test))
+linreg = linear_model.Ridge().fit(X_train,y_train)
+print(linreg.score(X_train,y_train))
+print(linreg.score(X_test,y_test))
 svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1).fit(X_train,y_train)
-print(svr_rbf.score(X_train,y_train))
-print(svr_rbf.score(X_test,y_test))
-
+print('svr_rbf', svr_rbf.score(X_train,y_train))
+print('svr_rbf', svr_rbf.score(X_test,y_test))
+krr = KernelRidge(alpha=1,degree=3).fit(X_train,y_train)
+print('krr', krr.score(X_train,y_train))
+print('krr', krr.score(X_test,y_test))
+knnreg = KNeighborsRegressor(n_neighbors=10).fit(X_train,y_train)
+print('knn', knnreg.score(X_train,y_train))
+print('knn', knnreg.score(X_test,y_test))
 print('##################')
+'''
+'''
+svr_rbf = SVR(kernel='rbf')
+grid_values = {'gamma' : [0.001, 0.01, 0.05, 0.1, 1, 10, 100], 'C' : [0.001, 0.01, 0.1, 1, 10, 100,1000,10000]}
+grid_svr_rbf = GridSearchCV(svr_rbf, param_grid = grid_values)
+grid_svr_rbf.fit(X_train,y_train)
+print(grid_svr_rbf.best_params_)
+print(grid_svr_rbf.best_score_)
+'''
+'''
+print('##################')
+predict = [[40, 1]]
 clf = linear_model.LinearRegression()
 clf.fit(X, y)
-print('Least Squared',clf.predict([[30, 0.98]]))
+print('Least Squared',clf.predict(predict))
 clf = linear_model.Lasso()
 clf.fit(X, y)
-print('Lasso',clf.predict([[30, 0.98]]))
+print('Lasso',clf.predict(predict))
 clf = linear_model.BayesianRidge()
 clf.fit(X, y)
-print('Ridge',clf.predict([[30, 0.98]]))
+print('BRidge',clf.predict(predict))
+clf = linear_model.Ridge()
+clf.fit(X, y)
+print('Ridge',clf.predict(predict))
 svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1)
-y_rbf = svr_rbf.fit(X, y).predict([[30,0.98]])
-print('SVR',y_rbf)
-
+y_rbf = svr_rbf.fit(X, y).predict(predict)
+print('SVR rbf',y_rbf)
+krr = KernelRidge(alpha=1,degree=3).fit(X, y).predict(predict)
+print('KRR',krr)
+y_knn = KNeighborsRegressor(n_neighbors=10).fit(X,y).predict(predict)
+print('KNN',y_knn)
+'''
 #cmap = cm.get_cmap('gnuplot')
 #scatter = pd.plotting.scatter_matrix(df_final[['Calls Offered','Percent_ACD','number_agents']], c= df_final['number_agents'], marker = 'o', s=40, hist_kwds={'bins':15}, figsize=(9,9), cmap=cmap)
 
+x = np.array([df_final['Calls Offered'].tolist(),df_final['Overflow Calls'].tolist()],dtype=float)
+z = np.array(df_final['number_agents'].tolist(),dtype=float)
+def logfit(x, a, b, c, d) :
+    return a * np.log(b*x[0] + c*x[1] + d)
+guess = (20,1,5,1)
+popt, pcov = curve_fit(logfit, x, z, guess)
+print('a = {0} , b = {1}, c = {2}, d = {3}'.format(popt[0], popt[1], popt[2], popt[3]))
+print('z = {0}*ln({1}*x + {2}*y + {3})'.format(popt[0],popt[1],popt[2],popt[3]))
+
+'''
 # plotting a 3D scatter plot
 fig = plt.figure()
 ax = fig.add_subplot(111, projection = '3d')
@@ -185,3 +226,26 @@ ax.scatter(df_final['Calls Offered'], df_final['number_agents'], df_final['Perce
 ax.set_xlabel('Calls Offered')
 ax.set_ylabel('Number of Agents')
 ax.set_zlabel('Percent ACD')
+'''
+
+x_line = np.arange(0,50)
+y_line = [1]*50
+
+XX = pd.DataFrame({'x':x_line.tolist(),'y':y_line})
+'''
+#y_rbf = svr_rbf.fit(X, y).predict(XX)
+y_knn = KNeighborsRegressor(n_neighbors=10).fit(X,y).predict(XX)
+linreg = linear_model.LinearRegression().fit(X, y).predict(XX)
+lasso =linear_model.Lasso().fit(X, y).predict(XX)
+'''
+lw = 2
+fig = plt.figure()
+ax = fig.add_subplot(111, projection = '3d')
+ax.scatter(df_final['Calls Offered'], df_final['Overflow Calls'], df_final['number_agents'], c = df_final['number_agents'], marker = 'o', s=30)
+ax.plot(x_line, y_line, popt[0]*np.log(popt[1]*XX['x']+ popt[2]*XX['y'] + popt[3]))
+#ax.plot(x_line, y_line, y_knn.ravel(), color='navy', lw=lw, label='RBF model')
+plt.title('Agent Forecasting')
+ax.text2D(0.08, -0.08, r'Num of agents = {0:3f} * ln({1:3f} * x + {2:3f} * y + {3:3f})'.format(popt[0],popt[1],popt[2],popt[3]), transform=ax.transAxes)
+ax.set_xlabel('Calls Offered')
+ax.set_ylabel('Overflow Calls')
+ax.set_zlabel('Number of Agents')

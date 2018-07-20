@@ -1,0 +1,668 @@
+Received: from SN6PR13MB2573.namprd13.prod.outlook.com (2603:10b6:803:42::43)
+ by BYAPR13MB2568.namprd13.prod.outlook.com with HTTPS via
+ SN4PR0501CA0126.NAMPRD05.PROD.OUTLOOK.COM; Sat, 26 May 2018 12:36:55 +0000
+Received: from BN6PR13CA0001.namprd13.prod.outlook.com (2603:10b6:404:10a::11)
+ by SN6PR13MB2573.namprd13.prod.outlook.com (2603:10b6:805:61::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.820.5; Sat, 26 May
+ 2018 12:36:53 +0000
+Received: from BL2NAM02FT021.eop-nam02.prod.protection.outlook.com
+ (2a01:111:f400:7e46::203) by BN6PR13CA0001.outlook.office365.com
+ (2603:10b6:404:10a::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.820.5 via Frontend
+ Transport; Sat, 26 May 2018 12:36:53 +0000
+Authentication-Results: spf=pass (sender IP is 199.81.212.185)
+ smtp.mailfrom=fedex.com; umrfventures.com; dkim=pass (signature was verified)
+ header.d=fedex.com;umrfventures.com; dmarc=pass action=none
+ header.from=fedex.com;
+Received-SPF: Pass (protection.outlook.com: domain of fedex.com designates
+ 199.81.212.185 as permitted sender) receiver=protection.outlook.com;
+ client-ip=199.81.212.185; helo=mx29.infosec.fedex.com;
+Received: from mx29.infosec.fedex.com (199.81.212.185) by
+ BL2NAM02FT021.mail.protection.outlook.com (10.152.77.158) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+ 15.20.820.8 via Frontend Transport; Sat, 26 May 2018 12:36:53 +0000
+DKIM-Signature: v=1; a=rsa-sha256; d=fedex.com; s=wtc; c=relaxed/relaxed;
+	q=dns/txt; i=@fedex.com; t=1527338212;
+	h=From:Sender:Reply-To:Subject:Date:Message-ID:To;
+	bh=hZ6/Q3GpyYWKlq0B+ZcF/ipoSbIF6/ueQJ5Tv8/L5lo=;
+	b=CxkEEEkrlZ7L1HZ4uVx697rPk1OmNhHrx113+DeLxKKvtQexSF9eG5gpMkg2myZd
+	NvaA15nHySXgWeuuqwZf0OTHIf84d4ithiKEWygHTtxNR7cY7o8BvFK45X1nK3Od
+	WAp1UyCvmqo/Jo/e6m7dSSJLoLy+KrTdnJLb3MXzmIc=;
+X-AuditID: c751d4b9-091ff70000000ebf-1d-5b0954e3ff39
+Received: from prh22031.prod.fedex.com (prh22031.prod.fedex.com [204.135.36.231])
+	(using TLS with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(Client did not present a certificate)
+	by mx29.infosec.fedex.com (FedEx MX) with SMTP id CA.86.03775.3E4590B5; Sat, 26 May 2018 07:36:51 -0500 (CDT)
+Received: from PWN60276.corp.ds.fedex.com (pwn60276.prod.fedex.com [10.236.250.89])
+	by prh22031.prod.fedex.com (Sentrion-MTA-4.3.2/Sentrion-MTA-4.3.2) with ESMTP id w4QCaoTU022011
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=FAIL)
+	for <jsankhon@umrfventures.com>; Sat, 26 May 2018 12:36:50 GMT
+Received: from C0000805.corp.ds.fedex.com (204.135.14.6) by
+ PWN60276.corp.ds.fedex.com (10.236.250.89) with Microsoft SMTP Server (TLS)
+ id 14.3.361.1; Sat, 26 May 2018 12:36:50 +0000
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com (207.46.163.79)
+ by o365smtp.prod.cloud.fedex.com (204.135.14.6) with Microsoft SMTP Server
+ (TLS) id 14.3.361.1; Sat, 26 May 2018 12:36:44 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=myfedex.onmicrosoft.com; s=selector1-fedex-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hZ6/Q3GpyYWKlq0B+ZcF/ipoSbIF6/ueQJ5Tv8/L5lo=;
+ b=RCUqTjETr5TJwhAcGvE/Tafx4E8NS2wQvXNRnpnVp30hjnQHLaKIoTjtckoFaNiJGLRsZ0D8fBqzl/TrXxxgmwsXd3tTE/Cz7V6QkQVMPA1mPv4P6yQJVfFiXnMbgbvb2y3cqFblxgMLB8iBo69CvisJkSAFYXjgnDFpF8G+S2A=
+Received: from BN6PR12MB1939.namprd12.prod.outlook.com (10.175.102.21) by
+ BN6PR12MB1169.namprd12.prod.outlook.com (10.168.226.147) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.797.11; Sat, 26 May 2018 12:36:48 +0000
+Received: from BN6PR12MB1939.namprd12.prod.outlook.com ([::1]) by
+ BN6PR12MB1939.namprd12.prod.outlook.com ([fe80::2972:11fa:74f8:e0e5%12]) with
+ Microsoft SMTP Server id 15.20.0797.015; Sat, 26 May 2018 12:36:48 +0000
+From: "Jasmine Sankhon (OSV)" <jasmine.sankhon.osv@fedex.com>
+To: "jsankhon@umrfventures.com" <jsankhon@umrfventures.com>
+Subject: FW: UMRF Calls Arrival Pattern for 2018-05-25
+Thread-Topic: UMRF Calls Arrival Pattern for 2018-05-25
+Thread-Index: AQHT9O42vnWxg6ewrUGUtAGpYOTGKqRB8pDd
+Date: Sat, 26 May 2018 12:36:48 +0000
+Message-ID: <f271b51a05d84fda92fe952cf58bea1c@BN6PR12MB1939.namprd12.prod.outlook.com>
+References: <201805261235.w4QCZ1iI009949@fss1-new.web.fedex.com>
+In-Reply-To: <201805261235.w4QCZ1iI009949@fss1-new.web.fedex.com>
+X-MS-Has-Attach:
+X-MS-Exchange-Inbox-Rules-Loop: jasmine.sankhon.osv@fedex.com
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: spf=none (sender IP is )
+ smtp.mailfrom=jasmine.sankhon.osv@fedex.com; 
+x-ms-exchange-parent-message-id: <201805261235.w4QCZ1iI009949@fss1-new.web.fedex.com>
+auto-submitted: auto-generated
+x-ms-exchange-generated-message-source: Mailbox Rules Agent
+x-ms-publictraffictype: Email
+X-Microsoft-Antispam-Untrusted: UriScan:;BCL:0;PCL:0;RULEID:(7020095)(4652020)(5600026)(4534165)(4627221)(201703031133081)(201702281549075)(2017052603328)(7153060);SRVR:BN6PR12MB1169;
+X-Microsoft-Exchange-Diagnostics-untrusted: 1;BN6PR12MB1169;7:Xfkul9VE57IL4fHbtal3ChBRsLsEonHX8lzr+YkqOQ8fNtOscHuaRLfOSMCmoSU+Wq8UJhQa/+jsG5fMrsdCOaf5T/oGZtBtwEHmKI8qqamUlcTeLvZRScGsk6pL6NOzE/kyC3nBdbNg5RHoTDDzn3fsT4LZqjtNyPHAB3+xwzOFi0eXiu6/jUwtWo7XmMcHG+msWwgWeG2oVCMip7Q3xYK7KsqtLDXrKgLmP5r/df+gjGG+g9CYaVWapNXxQhtr
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1169:|SN6PR13MB2573:
+x-microsoft-antispam-prvs: <BN6PR12MB1169BC4B9546216CB99F09D5AC680@BN6PR12MB1169.namprd12.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(176871016881987);UriScan:(176871016881987);
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0;PCL:0;RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(10201501046)(93006095)(93001095)(3002001)(3231254)(944501410)(52105095)(149027)(150027)(6041310)(20161123562045)(20161123560045)(20161123558120)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123564045)(6072148)(201708071742011)(7699016);SRVR:BN6PR12MB1169;BCL:0;PCL:0;RULEID:;SRVR:BN6PR12MB1169;BCL:0;PCL:0;RULEID:(2401047)(8121501046)(1430428)(1431068)(1432130)(1551054)(9101536074)(3002001)(10201501046)(3231254)(901025)(902075)(913088)(7045084)(944500087)(944510158)(944921075)(946801078)(946901078)(52103095)(52102095)(52105095)(52106170)(52401190)(52601095)(52505095)(52406095)(52305095)(52206095)(93006095)(93005095)(1610001)(8301001075)(8301003183)(9300000083)(9301000104)(201708071742011)(7699016);SRVR:SN6PR13MB2573;BCL:0;PCL:0;RULEID:;SRVR:SN6PR13MB2573;
+x-forefront-prvs: 0684F80A5C
+X-Forefront-Antispam-Report-Untrusted: SFV:NSPM;SFS:(10009020)(376002)(396003)(346002)(366004)(39380400002)(39860400002)(189003)(199004)(377424004)(39224004)(8936002)(316002)(81156014)(81166006)(2501003)(186003)(6916009)(229853002)(36005)(5660300001)(2473003)(486006)(73382002)(446003)(11346002)(2906002)(6506007)(476003)(3660700001)(102836004)(9686003)(54896002)(8676002)(1730700003)(86362001)(105586002)(3280700002)(55016002)(74316002)(106356001)(3110400002)(7696005)(10290500003)(76176011)(99286004)(25786009)(478600001)(108616005)(53936002)(24736004)(68736007)(6436002)(5640700003)(97736004)(53096004)(2351001)(8970500007);DIR:OUT;SFP:1101;SCL:1;SRVR:BN6PR12MB1169;H:BN6PR12MB1939.namprd12.prod.outlook.com;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;MX:1;A:1;
+received-spf: None (protection.outlook.com: fedex.com does not designate
+ permitted sender hosts)
+X-Microsoft-Antispam-Message-Info-Original: W3UQYRb8fzwp4WpI79HKt6s/uBZg7R+aXlAVw0Bu00w/0k1+BcwqCleL8BswU2Vo052quveqRcHmqgeCjj/hu/I9wTY+HVRdiFYk3BOEtiwUd8GfrSIwX2vu/W1d79hhz1JorgRnNmbiEQ+ulypvs+XetB827oY0FrNuMajNIldlTlXMenoArkMMfBND4Z8w
+SpamDiagnosticOutput: 1:99
+SpamDiagnosticMetadata: NSPM
+Content-Type: multipart/alternative;
+	boundary="_000_f271b51a05d84fda92fe952cf58bea1cBN6PR12MB1939namprd12pr_"
+X-MS-Office365-Filtering-Correlation-Id: dd2d1a8e-6dd4-48f1-d06f-08d5c3055c44
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1169
+X-Brightmail-Tracker: H4sIAAAAAAAAA11Ue0xTVxzm3FvLLfSOS6nwoxNNGhYXjLCxZdM4FzDLNBofiHOJBLHABRr7
+	wN6isGTKlkwR8TFFBAxWfJAhDpQxQaaIZWxYuzIJAxSIYvExbKwBu/HY2M7tbaH6z8l3v++c
+	73znd3/nUKTshFRBqXVG1qBTaZTiAJF1X+STxfZNkqR3bPtjlnQ8uoDi0KrG0/8SG9CWwI9S
+	VcadiepMXczH2wKzLBZt9uCq3KHxWiIfVb9XiCQUMO9DW+c0KkQBlIypI6C30kkIHy0EmPs6
+	RMJHM4IaR+McfomM+R3BkCOVxyLmPAk/fpUnTDpGgKu+mhQmDSC4e2Y3j8XMcrA27xfxWM4s
+	g/oXbQSPQ5gPoNtUSwr8hzB1z+bBsbDP2SgWNngLem5fcm9MM5uh5PgwxhT2jwPL8QyeljDx
+	UDV+hxCOw8C5a52kgJfDL8OHxQKeC3/ap902iNkG90tGPXM+g2cT/5ECPx+aJy55fJZBkf2x
+	v4AjoMt0wF0iYL5H8OChnRQ+GvCBH54g+EDARIHjeZCwYDvY+qb8vUbthYc8m82HCweHRMLa
+	FhK+bqpHR1BMOdZIRg/WSat/ufucwXCrbFgk8NHQd7xYLOBFUFX5jBTwYiidNot8+dNIfAGF
+	anNjl0ardRl6jk2LzmDT2dzoNL22HuFW+TWh+2oTqjwQb0YMhZRSOiZOkiSbo9rJ5WnNKJMi
+	lAq6ZK1riywkVZ+el6XislK4nFStmuPUep1yLr3kWypJ9saMZsjRsJxSTq/MxjQ9Q6fmaLZj
+	I8lG7D1rpGN3cRrWiPvWjIAi8bJFLfyydFXeF6xBL5iZ0ZuUSBlGw6g4ScZkqozsdpbNZg1e
+	laMoZQSN/Pz8ZKEGNpPNzVBrsKNvSqDX4bsgC/aVhaBh9PWXvK2v4s4aQWsv+ie96ugbl6Ak
+	fOYAhZxjdemsQZVjxKfEFyuFwzfLjNIoqTJcSCXjslVazPomktO3EnEi2isJaULo4kF8fqmX
+	dScJp2sS8NQZl9kUFmRClGNvURFJDTQcxeMLOz+WP+VHs7MYjzZ+lIl0eh2rmEePOrH7XN4o
+	K0f3ao0UYXQiXyPGR3WHUoTSJr4SQT4CnwvbDT9/zW42mvcRGkElBO4qoCPl/A/Ab9RrhQih
+	d/GFkHoUoQ4yWr4Wk4Ee0l0GoIc2+ljMbhXbgPA1LSDgctXPAXB7vC4QbjWYg8Bx9lEwXCw4
+	Ow+uNRbGw0SlbT1M9D9eD5fN7ZthoKM7GU6depaMub+SoeyxPQ1K+69kgePulAaeTlVoYWy0
+	cwccvXn+GILLtt4KBGMVd35A0FrY2YqgtLe1HfNmlwWBwzRuRVBfNvobAqvrBn4J63pqexF0
+	Xx/sQ3Dqesl9BEfarjqwevLq35i5P7mfGMEtQsy2iFH1emXkdG2NP98iHsnbIp863S3iYT0t
+	soInZ1xmi6PIRwk/WVevG3vbeSOi4ty9/pAtZybCV+y1mSq/+/LiywVPFqArTQlrekaC9jzt
+	elC1Uh4u2qovOD2WH39og777TkJONbNWPGmK/KfHteqTwydrAvw+X35Qu3pp2A7HN/PVdQtt
+	N2MNI81bNy3c0zXxB0OoG11MVKQ40CKl7UMpMbsPFpM1ShGXpXo3ijRwqv8BuxRRoqoGAAA=
+Return-Path: prvs=2684ec03e9=jasmine.sankhon.osv@fedex.com
+X-MS-Exchange-Organization-ExpirationStartTime: 26 May 2018 12:36:53.3059
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: Original Submit
+X-MS-Exchange-Organization-ExpirationInterval: 2:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: Original Submit
+X-MS-Exchange-Organization-Network-Message-Id: dd2d1a8e-6dd4-48f1-d06f-08d5c3055c44
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: a9875f55-d354-4daf-91c1-929474c2d026:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: BL2NAM02FT021.eop-nam02.prod.protection.outlook.com
+X-Forefront-Antispam-Report: CIP:199.81.212.185;IPV:NLI;CTRY:US;EFV:NLI;SFV:NSPM;SFS:(8156002)(2990300002)(438002)(539002);DIR:INB;SFP:;SCL:1;SRVR:SN6PR13MB2573;H:mx29.infosec.fedex.com;FPR:;SPF:Pass;LANG:en;PTR:pvma00045.prod.fedex.com;
+X-Microsoft-Exchange-Diagnostics: 1;BL2NAM02FT021;1:+ZxdD6CCo7SVhe0bHmgKeQGmWI5+52he6nXPh9ZFZDMTMoCoKGdyK3jxznYWtYKWU9r+gDc/g02TMXoE9CbQJGT1flZ9c56kAiK/b2vTyBHWyCy/goziM7Xz0QG3a2CV
+X-MS-Exchange-Organization-AuthSource: BL2NAM02FT021.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-Microsoft-Antispam: UriScan:;BCL:0;PCL:0;RULEID:(7020095)(5600026)(4605076)(4608076)(4614076)(1401150)(8001031)(1402068)(71702078);SRVR:SN6PR13MB2573;
+X-Microsoft-Exchange-Diagnostics: 1;SN6PR13MB2573;3:x26iRFr/mJrGY1YXG1WkKsQpiD64hn44XbwiGNxF2wZxqZxggL/wyCSOtBgmkKAEB/6R+NnU0dueQJunxx/FxznkcsQ69jDcRZ4W++M1ZQ248pwhj5aIEH5/7Wsy+es7+D1i1V+feBbEA8zDdayKMT9W5t7WvlEwsCN2AoPdWkFgtkGuFiawhf3C8D2Nj0cqdttfm28PC+rZlNAquOzWOAwkSIz2yjUQ64ZkVlR7Lu37Rs+MWSLDRCbeU8dXamzyLcRXsZGsz0GXAeKqvpOn5jaBQkd1YngMV4v/Nch2qrLWDOttJd85ohMXat+zIwvLdflMYGRcc8A2S5341v7riTN1TRi6s0HWjrgPcBBd0UA=;25:C7yjMFUe15VabtrOQobbnzdP39l6vjgChX2cQku1uGvY+hrrKaZy9RDOY0Kdlik8A18LuVCpbBCVcEoScrUoEA6myJM6Kuzq1aX+pE2T379HCEE8FQc/3LdUbHOjd54xsBvTD1F4ADmq9wBQYTTe65lO2Wo7SHdr7pq62fGUV3+pmf0VGXoFgRRFr78rI2oARdUqs15518BdxrXwCRUr+Q094chwNQDzPUMM/LKZ2k0W9CfwT7tDWg8lHCvuDBERvRFO8A7anXV+LWhBR+wJNux9cJPdeHwgBoHMhdnbXtvzN0qYVgteGIJcjQSPd7yEfAKEk4Nzx7EJz1g4BvMAIA==
+X-Microsoft-Exchange-Diagnostics: 1;SN6PR13MB2573;31:OecS1/1dtGxea4/z/CwHEy0K2ny8GXHKtQW77b2YIv9xvKmxkKAhQPurBls7cVuBUwLwMbwAdUkMALXeTwB4QGLVpWZU4BjsnvIcg2CXVHvW0ztqpJuUsgOJo7nhMbd6SkB5l5eTy9meyAYC6fl83kaxTXyzent5boFguM+UkFpupqbEWXliFeQO7nMrVfOgPLnPzpwkqJsZG2+fWoCxYHrhuJhENm0GM07ANoq+gh8=;4:UUnxUNJa+R5xYqd6jHZOEO/0guJyu3kVIycOLemx8twzVsWoaWZcuq7RmBLv89LZt1zQrMBvaxIBhvkD98XvDNi+64Fq2/wivUtv1L0kDoBVqaQvj/lWHWGTVAMJEgDZvWj8yiFnwyjsHI1DxsHQMJNajlYBw+I2fkhGlx/oC3pSgm4XOgAqcdKYuhM7XCvH0jil3SDWTze1pDFHwC4ZTnlzHmd5HyhwUvzhM/BmLkG2SRriBtGj093Mji2UrSmQBZUwHt3VQcZo2M/8O7ylrpCiCcqDAomDhm1WCVq5O2z8Rw8wWdR+sT2fI9gzaHLF;23:+/hbdTo3+QHcUYFLAfLPHRt2Ys153D3tUwWYriS5sYRs7A0/gGqpryR07cJ6Ny6ihjFTlBjvgf8LCMsHkoHWcUdJe+0pOLweNwIueHdL+I5tACN6yvOOqP1rlgBTAZZ2HCGkOZVlId6IIcyx2UNfuVdw5atKWJjsbC3s5eUszPiDNg74X60/c6uOEaTPKCZhs3Pu1YE2rru519wFSjoXbQ==
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam-Message-Info: Iu4BU7s5r5flBOrlhebYOfpzfoLULEb05Q4rsLXZiGONphF6pkLHK73baC1jR3111dwiu/wJ0SvZKQ1zD0VhOflTuknvZGwEmeOC2ghm08S4owWI01G15OjQincE4/Pr46qT2nIWT/A+VI5upFTKImCRc9LSZZ+OV1zONzf6ohjmlX6OftBssr0fmxJ0EZF66X0+FVyiLcPXoRwHhhG13maxrnS30pF6Pri4xApRwwnq87/yY554qvGMREAwDOysFnZyacWId4uMeEHlvlZa5mhDodrwoy6v9zvwE+hrMDT8YPADtMLBxywhEGOPvL0SHzTm0bYnvNPrZkTdafvn0Y6MLSQaRn6lev+BuCqWbiAAT/uTcWCKW1w0Fqdy8bPOXExCysIThYt/dLagwo21Q489koUoHvTTHnw6I7n6EL1M5ehbhsOPS664UYCJ7mJT3zh7winFgm2nR5zgZQ45Xw==
+X-Microsoft-Exchange-Diagnostics: 1;SN6PR13MB2573;6:ricCfd6Bdvl0t/5U4o6Fm1+PnQlmN4nzeViCkcAJv0RW/RV9/72ULMAhsDif36/X8CAK0RRK08Ennz3qTGpmJVK5x2fVlnVx0b+J7bueantX8oYvx0j61+toDou4G4zfv2YapbrVuXPWGRhqMo9uTE9AK7lHaDtOV2GC5UkherfW7H3ldgDUvINxx4x5NVdaphJ0tX2ft7XtuNUbp3CcjWCg8qZjuWA4P46mXRCwHgZ+Eb5V2JJvrx/UQdWwizZYDcLWv0qT9tDh1QdBNOhZ836DoQHYTPxK+Ev6/dXdXtgsMH1wzQPbSSOL8143xIe2zxq3ZBYS/znnzOiIKKZKaa5hZ/QG1DHe9EwdN996y2Ansjw+j1rSVqkoiydCiUYtXvp1N/+/MJ5ANme59tP94oT5ZOfM1R4TgJa6Wpwt84SWDe28XRbS72rvq+WvVcnO9zAG0mf27ep/tK2XBe3lRA==;5:dR84SE+XE8iRIzTpo631ajICRDKA+osZAiOg1JJwvvyJh1ir2fdqgSfn5wR0Pn6rbMeEF64rumPCijbJAmwg8ZRwca6yOQZssfGTTAxdICtXZ/12h6z8DpYOcl6/ji5bCUcMdzT+jSontdRIw4oSQSPZ6AYC6a7kslsOpHC11SM=;24:CjyX0uv84NUkMqHQ9jJVN3TDwGCPhQNWMrCQudps2MD23o5PPKPIZHcQgkIHUcWUnfjBmF1pWE6l+IAcWaEWqkGGRh6H1STmRBickiVAml4=
+X-Microsoft-Exchange-Diagnostics: 1;SN6PR13MB2573;7:nS4KogtCatbqmVHPCRwpTd5K3D/bpRedHBzVrDbcVIuP92RcVA+zHIOZzih0tu4k97Gz0WYeTYzrvXZKcKVdMMKeZCveI64/6FY9+xPzvuIqaPlVkbpU3Je/0i5nKHyKrrNy+SGtIkD00XQulxAsAtnLX/0YTWVdRD2+kzNOK/I3OOPA/SGf9bAC6/EKpEskkn9febjEY79j9Y3HGEPtdwxckM/vCMqL7BkQAeCBmctmzJCUIiu3uNG208sXX1Qx
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2018 12:36:53.1497
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd2d1a8e-6dd4-48f1-d06f-08d5c3055c44
+X-MS-Exchange-CrossTenant-Id: a9875f55-d354-4daf-91c1-929474c2d026
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR13MB2573
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.0024262
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.0820.003
+X-Microsoft-Exchange-Diagnostics: 1;BYAPR13MB2568;27:UpoQarC6G89FApV5uYjIiDOfT05X1Qsbt4z4U8TuOnpCyjdM3HfjpAqbH1dSg2cgiwqQG08w4TISkoUDqgMxBhQLvAYZ3DmT/vUp8Xb8nBmHDpFlU7jI0grFlfbOd1/q
+X-Microsoft-Antispam-Message-Info: +9E3LJ02RjALdYI4QcwKcN7XiFijCANFeN15IEf874YzS0yMehr+e10O8qAp7BpqYKHOaWPkF4gz1ujz8lSlRSq/IWZWbyMifDqSBI69abELXKoXFYmlL0TTB5uVm9GygVJlWrGfe+4zOQASSVPo6q8WrRtEJ84hlKW1K5MLjM3ZSrLDmM/IxQ0/F0QHfpwI90LMNqibV56ll394Z5ynOqkYKNbH4OgASKAT+/7wXGZADkUv1FiaFPDSbEH4qtTkbSnBl8eW5Tm2Gfa0Y0gAT4ijd2Nnx/mrmfqxM36Hr3OBzEH9tJtH8DMGz3xQbHvp4q2PxHNDFFY3srIS4IUzVLY3e6MNx6KEuGeKHQI0Q0sQcfKSnWRe7hPM84ol1waf+0ABDtd55YhqnYQQwFQOG/YjrOtxAzh0t4ykoHIMGxftUC3R3dn7dMO27fV1LzglkVn6DtAZ0msmV2RisI3rgQ==
+MIME-Version: 1.0
+
+--_000_f271b51a05d84fda92fe952cf58bea1cBN6PR12MB1939namprd12pr_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+X-Microsoft-Exchange-Diagnostics: 1;BYAPR13MB2568;27:UpoQarC6G89FApV5uYjIiDOfT05X1Qsbt4z4U8TuOnpCyjdM3HfjpAqbH1dSg2cgiwqQG08w4TISkoUDqgMxBhQLvAYZ3DmT/vUp8Xb8nBmHDpFlU7jI0grFlfbOd1/q
+X-Microsoft-Antispam-Message-Info: +9E3LJ02RjALdYI4QcwKcN7XiFijCANFeN15IEf874YzS0yMehr+e10O8qAp7BpqYKHOaWPkF4gz1ujz8lSlRSq/IWZWbyMifDqSBI69abELXKoXFYmlL0TTB5uVm9GygVJlWrGfe+4zOQASSVPo6q8WrRtEJ84hlKW1K5MLjM3ZSrLDmM/IxQ0/F0QHfpwI90LMNqibV56ll394Z5ynOqkYKNbH4OgASKAT+/7wXGZADkUv1FiaFPDSbEH4qtTkbSnBl8eW5Tm2Gfa0Y0gAT4ijd2Nnx/mrmfqxM36Hr3OBzEH9tJtH8DMGz3xQbHvp4q2PxHNDFFY3srIS4IUzVLY3e6MNx6KEuGeKHQI0Q0sQcfKSnWRe7hPM84ol1waf+0ABDtd55YhqnYQQwFQOG/YjrOtxAzh0t4ykoHIMGxftUC3R3dn7dMO27fV1LzglkVn6DtAZ0msmV2RisI3rgQ==
+
+
+________________________________
+From: ESD_Feedback@corp.ds.fedex.com
+Sent: Saturday, May 26, 2018 7:35:01 AM (UTC-06:00) Central Time (US & Cana=
+da)
+To: Sami Al-Chokhachi; Jim Withem; Ronald Lunsford; 5289267@fedex.com; 5291=
+632@fedex.com; 3617735@fedex.com
+Subject: UMRF Calls Arrival Pattern for 2018-05-25
+
+
+Abandoned and Offered and ACD Calls for UMRF for 2018-05-25 00:00:00 to 201=
+8-05-25 23:59:59
+Time Interval   SL Abandoned    Abandoned Calls Calls Offered   ACD Calls  =
+     Overflow Calls
+12:00-12:30AM   0       0       0       0       0
+12:30-1:00AM    0       0       0       0       0
+1:00-1:30AM     0       0       0       0       0
+1:30-2:00AM     0       0       0       0       0
+2:00-2:30AM     0       0       0       0       0
+2:30-3:00AM     0       0       0       0       0
+3:00-3:30AM     0       0       0       0       0
+3:30-4:00AM     0       0       0       0       0
+4:00-4:30AM     0       0       0       0       0
+4:30-5:! 00AM   0       0       0       0       0
+5:00-5:30AM     0       0       0       0       0
+5:30-6:00AM     0       0       0       0       0
+6:00-6:30AM     0       0       0       0       0
+6:30-7:00AM     0       0       0       0       0
+7:00-7:30AM     0       0       17      9       8
+7:30-8:00AM     0       0       5       5       0
+8:00-8:30AM     0       0       18      16      1
+8:30-9:00AM     0       0       18      17      2
+9:00-9:30AM     0       0       17      15      2
+9:30-10:00AM    0       0       18      16      2
+10:00-10:30AM   0       0       13      12      1
+10:30-11:00AM   0       0!      15      14      1
+11:00-11:30A! M0        0       10      10      0
+11:30-12:00PM   0       0       10      10      0
+12:00-12:30PM   0       0       6       6       0
+12:30-1:00PM    0       0       9       9       0
+1:00-1:30PM     1       1       13      12      0
+1:30-2:00PM     0       0       9       8       1
+2:00-2:30PM     0       0       6       6       0
+2:30-3:00PM     0       0       6       5       1
+3:00-3:30PM     0       0       7       7       0
+3:30-4:00PM     1       1       10      9       0
+4:00-4:30PM     0       0       5       5       0
+4:30-5:00PM     0       0       8       7       1
+5:00-5:30PM     0       0       64      2
+5:30-6:00PM     0       0       2       2       0
+6:00-6:30PM     0       0       5       3       2
+6:30-7:00PM     0       0       2       1       1
+7:00-7:30PM     0       0       1       1       0
+7:30-8:00PM     0       0       2       1       1
+8:00-8:30PM     0       0       0       0       0
+8:30-9:00PM     0       0       0       0       0
+9:00-9:30PM     0       0       0       0       0
+9:30-10:00PM    0       0       0       0       0
+10:00-10:30PM   0       0       0       0       0
+10:30-11:00PM   0       0       0       0       0
+11:00-11:30PM   0       0       0       0       0
+1! 1:30-12:00AM 0       0       0       0       0!
+Total   2       2       238     210     26
+Avg.    0.04    0.04    4.96    4.38    0.54
+
+--_000_f271b51a05d84fda92fe952cf58bea1cBN6PR12MB1939namprd12pr_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+X-Microsoft-Exchange-Diagnostics: 1;BYAPR13MB2568;27:UpoQarC6G89FApV5uYjIiDOfT05X1Qsbt4z4U8TuOnpCyjdM3HfjpAqbH1dSg2cgiwqQG08w4TISkoUDqgMxBhQLvAYZ3DmT/vUp8Xb8nBmHDpFlU7jI0grFlfbOd1/q
+X-Microsoft-Antispam-Message-Info: +9E3LJ02RjALdYI4QcwKcN7XiFijCANFeN15IEf874YzS0yMehr+e10O8qAp7BpqYKHOaWPkF4gz1ujz8lSlRSq/IWZWbyMifDqSBI69abELXKoXFYmlL0TTB5uVm9GygVJlWrGfe+4zOQASSVPo6q8WrRtEJ84hlKW1K5MLjM3ZSrLDmM/IxQ0/F0QHfpwI90LMNqibV56ll394Z5ynOqkYKNbH4OgASKAT+/7wXGZADkUv1FiaFPDSbEH4qtTkbSnBl8eW5Tm2Gfa0Y0gAT4ijd2Nnx/mrmfqxM36Hr3OBzEH9tJtH8DMGz3xQbHvp4q2PxHNDFFY3srIS4IUzVLY3e6MNx6KEuGeKHQI0Q0sQcfKSnWRe7hPM84ol1waf+0ABDtd55YhqnYQQwFQOG/YjrOtxAzh0t4ykoHIMGxftUC3R3dn7dMO27fV1LzglkVn6DtAZ0msmV2RisI3rgQ==
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta content=3D"text/html; charset=3Dutf-8">
+</head>
+<body>
+<strong>
+<div><font face=3D"Tahoma" color=3D"#000000" size=3D"2">&nbsp;</font></div>
+</strong>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<font face=3D"Tahoma" size=3D"2"><b>From:</b> ESD_Feedback@corp.ds.fedex.co=
+m<br>
+<b>Sent:</b> Saturday, May 26, 2018 7:35:01 AM (UTC-06:00) Central Time (US=
+ &amp; Canada)<br>
+<b>To:</b> Sami Al-Chokhachi; Jim Withem; Ronald Lunsford; 5289267@fedex.co=
+m; 5291632@fedex.com; 3617735@fedex.com<br>
+<b>Subject:</b> UMRF Calls Arrival Pattern for 2018-05-25<br>
+</font><br>
+<div></div>
+<div>
+<p><b>Abandoned and Offered and ACD Calls for UMRF for 2018-05-25 00:00:00 =
+to 2018-05-25 23:59:59</b><br>
+<table border=3D"1">
+<tbody>
+<tr>
+<td>Time Interval</td>
+<td>SL Abandoned</td>
+<td>Abandoned Calls</td>
+<td>Calls Offered</td>
+<td>ACD Calls</td>
+<td>Overflow Calls</td>
+</tr>
+<tr>
+<td>12:00-12:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>12:30-1:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1:00-1:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1:30-2:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2:00-2:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2:30-3:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3:00-3:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3:30-4:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4:00-4:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4:30-5:! 00AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>5:00-5:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>5:30-6:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>6:00-6:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>6:30-7:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>7:00-7:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>17</td>
+<td>9</td>
+<td>8</td>
+</tr>
+<tr>
+<td>7:30-8:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>8:00-8:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>18</td>
+<td>16</td>
+<td>1</td>
+</tr>
+<tr>
+<td>8:30-9:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>18</td>
+<td>17</td>
+<td>2</td>
+</tr>
+<tr>
+<td>9:00-9:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>17</td>
+<td>15</td>
+<td>2</td>
+</tr>
+<tr>
+<td>9:30-10:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>18</td>
+<td>16</td>
+<td>2</td>
+</tr>
+<tr>
+<td>10:00-10:30AM</td>
+<td>0</td>
+<td>0</td>
+<td>13</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr>
+<td>10:30-11:00AM</td>
+<td>0</td>
+<td>0! </td>
+<td>15</td>
+<td>14</td>
+<td>1</td>
+</tr>
+<tr>
+<td>11:00-11:30A! M</td>
+0
+<td>0</td>
+<td>10</td>
+<td>10</td>
+<td>0</td>
+</tr>
+<tr>
+<td>11:30-12:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>10</td>
+<td>0</td>
+</tr>
+<tr>
+<td>12:00-12:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>6</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr>
+<td>12:30-1:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>9</td>
+<td>9</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1:00-1:30PM</td>
+<td>1</td>
+<td>1</td>
+<td>13</td>
+<td>12</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1:30-2:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>9</td>
+<td>8</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2:00-2:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>6</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2:30-3:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>6</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3:00-3:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>7</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3:30-4:00PM</td>
+<td>1</td>
+<td>1</td>
+<td>10</td>
+<td>9</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4:00-4:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4:30-5:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>8</td>
+<td>7</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5:00-5:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>6</td>
+4
+<td>2</td>
+</tr>
+<tr>
+<td>5:30-6:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>6:00-6:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>6:30-7:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>7:00-7:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>7:30-8:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>8:00-8:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>8:30-9:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>9:00-9:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>9:30-10:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>10:00-10:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>10:30-11:00PM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>11:00-11:30PM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1! 1:30-12:00AM</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0! </td>
+</tr>
+<tr>
+<td>Total</td>
+<td>2</td>
+<td>2</td>
+<td>238</td>
+<td>210</td>
+<td>26</td>
+</tr>
+<tr>
+<td>Avg.</td>
+<td>0.04</td>
+<td>0.04</td>
+<td>4.96</td>
+<td>4.38</td>
+<td>0.54</td>
+</tr>
+</tbody>
+</table>
+</p>
+</div>
+</body>
+</html>
+
+--_000_f271b51a05d84fda92fe952cf58bea1cBN6PR12MB1939namprd12pr_--
