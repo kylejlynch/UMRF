@@ -54,7 +54,13 @@ The following programs are will soon be apart of the web application. Using call
 * [UMRF_Outflow.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Outflow.py) - Calculates average missed calls for the previous month (or given time period) to aid in scheduling agents.
 * [UMRF_Sched_Optimization.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Sched_Optimization.py) - Predicts labor cost based on schedules. Breaks the schedules into 30 min time blocks. This will be used to compare scheduled vs actual hours. It will incorporate hourly pay from SQL database emplist.sqlite to yield predicted labor cost per 30 min time block. Finally, It will compare predicted number of agents to actual agents and compare with the number of overflow calls for schedule optimization.
 * [custom_functions.py](https://github.com/kylejlynch/UMRF/blob/master/custom_functions.py) - Various custom functions used repeatedly such as weighted average, weighted standard deviation, converting time to various formats, and several functions used for obtaining data from email.
+* [UMRF_ML.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_ML.py) - Somewhat of a scrap sheet of paper at the moment while I text various machine learning models in scikit-learn and and fits in scipy. Collects shift information from WhenIwork API and call flow data from Cisco. Predicts number of employees needed to take all calls per 30 min time block. This is important - as we continue to increase call volume as we grow we need to accurately predict scheduling throughout the day. My best fit so far is a logarithmic fit using scipy (see below for the plot with fit).
+
 <br>
+Example plot from UMRF_ML.py :
+
+![](https://i.imgur.com/xcNjghs.png?1)
+
 Example plot from UMRF_Earnings_Time_Block.py :
 
 ![](https://i.imgur.com/y1EE1YO.png)
