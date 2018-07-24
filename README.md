@@ -59,7 +59,7 @@ The following programs are will soon be apart of the web application. Using call
 <br>
 Example plot from UMRF_ML.py :
 
-![](https://i.imgur.com/in145p4.png)
+![](https://i.imgur.com/WpY1y51.png)
 
 Example plot from UMRF_Earnings_Time_Block.py :
 
