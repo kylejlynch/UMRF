@@ -28,7 +28,7 @@ for i in j :
         except : continue
 
 df = pd.DataFrame(data)
-
+print(df.head(20))
 df = df.filter(['id','employee_code','first_name','last_name','locations','positions','role','hourly_rate','phone_number','email'])
 df = df[~(df['locations'].str.len() > 1)].drop(columns = ['locations'])
 df = df[(df['positions'].str.len() >= 1)]
@@ -45,7 +45,7 @@ df['location'] = df['positions'].str[0].replace({8457625 : 'Lambuth',
                                                   5806250 : 'Memphis',
                                                   5985624 : np.nan})
 df = df.drop(columns = ['positions'])
-print(df.head(10))
+#print(df.head(20))
 
 letters = list(string.ascii_uppercase)
 writer = pd.ExcelWriter('emplist.xlsx')

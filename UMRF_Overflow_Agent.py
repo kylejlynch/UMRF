@@ -16,15 +16,15 @@ from UMRF_Earnings_Time_Block import workedshiftblock
 
 def overflowagent(yyyymmdd=None) :
     if yyyymmdd is None :
-        start = datetime.strftime(datetime.now() - timedelta(2), '%Y-%m-%d')
+        start = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
     else :
         start = yyyymmdd
     end_plus1 = datetime.strftime(datetime.strptime(start,'%Y-%m-%d') + timedelta(1), '%Y-%m-%d')
     
     dfraw = callpatternsing(start)
-    
+
     df_call = dfraw.filter(['Overflow Calls'])
-    
+
     dfdata = workedshiftblock(start,exclude=[7356014,8569433,5806257])[1]
 
     hour_list = []
@@ -38,12 +38,12 @@ def overflowagent(yyyymmdd=None) :
     dftemp2['number_agents'] = (dftemp2.sum(axis=1))*2 # Number of hours = number of agents
     df = dftemp2['number_agents']
     
-    df_final = pd.concat([df,df_call], axis=1).fillna(0)
-
+    df_final = pd.concat([df,df_call], axis=1).fillna(0) # concats and fills opening and closing time blocks
+    
     year, month, day = start.split('-')
     dayname = calendar.day_name[calendar.weekday(int(year), int(month), int(day))]
     month = calendar.month_name[int(month)]
-    
+
     df_final['number_agents'].plot.bar(alpha=0.60,color='blue',width=0.85,legend=True)
     df_final['Overflow Calls'].plot.bar(alpha=0.80,color='red',width=0.50,legend=True)
     plt.subplots_adjust(bottom=0.25)

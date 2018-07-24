@@ -20,16 +20,19 @@ from UMRF_Call_Pattern_single import callpatternsing
 
 pd.set_option('display.max_columns', 100)
 
-def workedshiftblock(yyyymmdd=None,exclude=None) :
-    if yyyymmdd is None :
+def workedshiftblock(start=None,end=None,exclude=None) :
+    if start is None :
         start = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
     else :
-        start = yyyymmdd
+        start = start
+    if end is None :
+        end_plus1 = datetime.strftime(datetime.strptime(start,'%Y-%m-%d') + timedelta(1), '%Y-%m-%d')
+    else :
+        end_plus1 = datetime.strftime(datetime.strptime(end,'%Y-%m-%d') + timedelta(1), '%Y-%m-%d')
     if exclude is None :
         exclude_list = [7356014]
     else :
         exclude_list = exclude
-    end_plus1 = datetime.strftime(datetime.strptime(start,'%Y-%m-%d') + timedelta(1), '%Y-%m-%d')
     
     headers = wheniworktoken()
     params = (
@@ -54,7 +57,6 @@ def workedshiftblock(yyyymmdd=None,exclude=None) :
     dfdata['end_time'] = dfdata['end_time'].str.extract('(..\s...\s....\s..:..:..)')
     dfdata['end_time'] = dfdata['end_time'].replace(pd.NaT,'{} 20:00:00'.format(start)) # in case someone forgets to clock out at 8pm
     dfdata['end_time'] = pd.to_datetime(dfdata['end_time'],infer_datetime_format=True)
-    print(dfdata)
     return start, dfdata
 
 def earntimeblock() :
