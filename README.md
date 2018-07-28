@@ -1,6 +1,7 @@
-# UMRF Ventures Web Application and Schedule Optimization
+# UMRF Ventures Web Application and Predictive Analytics
 - [Web Application](#umrf-ventures-agent-data-and-statistics-web-application)
-- [Current Projects](#current-projects)
+- [Predicitive Analytics](#predicitive-analytics)
+- [Budgeting/Schedule](#daily-email-reports)
 - [Upcoming/To do](#upcoming)
 
 ## UMRF Ventures Agent Data and Statistics Web Application
