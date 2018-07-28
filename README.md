@@ -43,8 +43,16 @@ The Excel workbook is currently used by supervisors to ensure that agents are pe
 ![Agent_Weekly.xlsx](https://i.imgur.com/kOOAhs2.png)
 <br>
 <br>
-## Current Projects
-The following programs are will soon be apart of the web application. Using call data and the WhenIWork API I will automate various reports on earnings and scheduling on a daily/weekly basis. Please see below for links and descriptions of the contributing programs:
+## Machine Learning/Predictive Analytics
+Using call flow data and schedule data from our time clock's REST API I apply Scikit-Learn machine learning (ML) algorithms as well as SciPy curve_fit to predict how many agents will be need as we continue to increase call flow with FedEx. I noticed the data had a slight logarithmic look to it so I tried fitting it with y = a*ln(b*x + c*y + d) with good results. The ML algorithms seemed to do really well within the scope of the data. However, the equation obtained from the log fit does better at making predictions out of the scope of the data.
+* [UMRF_ML.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_ML.py) - Somewhat of a scrap sheet of paper at the moment while I text various machine learning models in scikit-learn and and fits in scipy. Collects shift information from WhenIwork API and call flow data from Cisco. Predicts number of employees needed to take all calls per 30 min time block. This is important - as we continue to increase call volume as we grow we need to accurately predict scheduling throughout the day. My best fit so far is a logarithmic fit using scipy (see below for the plot with fit).
+
+<br>
+Example plot from UMRF_ML.py :
+
+![](https://i.imgur.com/WpY1y51.png)
+
+## Daily Email Reports / Budgeting / Scheduling
 * [UMRF_Call_Pattern_month.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Call_Pattern_month.py) - Analyzes pervious month's incoming calls per 30 min time block, averages them per day of the week (along with standard deviation) and uses this to predict the optimal number of agents needed to minimize both missed calls labor costs based on previous month.
 * [UMRF_Call_Pattern_day.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Call_Pattern_day.py) - Retreives, cleans, and formats call data (number of calls) in 30 minute intervals to aid in scheduling and earnings/labor analysis. Used in UMRF_Earnings_Time_Block.py.
 * [UMRF_Earnings_Time_Block.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Earnings_Time_Block.py) - Analyzes previous day's labor hours and calls received in 30 min time intervals to visualize when UMRF gains/loses money throughout the day.
@@ -54,13 +62,6 @@ The following programs are will soon be apart of the web application. Using call
 * [UMRF_Outflow.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Outflow.py) - Calculates average missed calls for the previous month (or given time period) to aid in scheduling agents.
 * [UMRF_Sched_Optimization.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Sched_Optimization.py) - Predicts labor cost based on schedules. Breaks the schedules into 30 min time blocks. This will be used to compare scheduled vs actual hours. It will incorporate hourly pay from SQL database emplist.sqlite to yield predicted labor cost per 30 min time block. Finally, It will compare predicted number of agents to actual agents and compare with the number of overflow calls for schedule optimization.
 * [custom_functions.py](https://github.com/kylejlynch/UMRF/blob/master/custom_functions.py) - Various custom functions used repeatedly such as weighted average, weighted standard deviation, converting time to various formats, and several functions used for obtaining data from email.
-* [UMRF_ML.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_ML.py) - Somewhat of a scrap sheet of paper at the moment while I text various machine learning models in scikit-learn and and fits in scipy. Collects shift information from WhenIwork API and call flow data from Cisco. Predicts number of employees needed to take all calls per 30 min time block. This is important - as we continue to increase call volume as we grow we need to accurately predict scheduling throughout the day. My best fit so far is a logarithmic fit using scipy (see below for the plot with fit).
-
-<br>
-Example plot from UMRF_ML.py :
-
-![](https://i.imgur.com/WpY1y51.png)
-
 Example plot from UMRF_Earnings_Time_Block.py :
 
 ![](https://i.imgur.com/y1EE1YO.png)
