@@ -30,6 +30,20 @@ def top_perform() :
         topdf.index += 1
         topdf.to_html('{}.html'.format(k))
     
+    ticketdf = pd.read_sql_query('''SELECT "Date",
+                                         "FirstName",
+                                         "LastName",
+                                         "CallsHandled",
+                                         "IncidentsCreated",
+                                         "Ticket %"
+                                         FROM "AllData"
+                                         WHERE "Date"
+                                         IS "{0}"
+                                         AND "Ticket %" < 100
+                                         ORDER BY "Ticket %" ASC'''.format(yesterday),
+                                         conn2)
+    ticketdf.to_html('ticket_percent_yest.html')
+    
     if date.today().weekday() == 0 :
         val = ['FCR %', 'NR%', 'AHT (min)',"IncidentsCreated"]
         order = ['DESC','ASC','ASC','DESC']
@@ -52,3 +66,4 @@ def top_perform() :
     print('top_perform.py executed successfully')
     conn.commit()
     cur.close()
+top_perform()

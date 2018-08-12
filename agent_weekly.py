@@ -81,6 +81,7 @@ def agentweekly() :
             print(dt,'already in')
             continue
     
+    dfdaily['IncidentsCreated'] = dfdaily['IncidentsCreated'].mask((dfdaily['IncidentsCreated'] == 0) & (dfdaily['CallsHandled'] > 0))
     dfdaily.to_sql('AllData', conn, if_exists='append')
     
     conn.commit()

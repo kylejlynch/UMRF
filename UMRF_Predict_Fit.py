@@ -75,15 +75,17 @@ def timeblockrange(start,end,exclude=None) :
     dftemp2['number_agents'] = (dftemp2.sum(axis=1))*2 # Number of hours = number of agents
     df = dftemp2['number_agents']
 
-    df_call = callpatternrange(start='2018-05-01', end='2018-07-22').drop(columns=['Date','rank'])
+    df_call = callpatternrange(start='2018-05-01', end='2018-08-06').drop(columns=['Date','rank'])
 
-    #df_final = pd.concat([df,df_call], axis=1).fillna(0)
     df_final = df_call.join(df,how='inner')
     df_final = df_final.drop(columns=['SL Abandoned','Abandoned Calls'])
     df_final = df_final.apply(pd.to_numeric, errors='ignore')
     return df_final
 
-df_final = timeblockrange(start='2018-05-01', end='2018-07-22', exclude=[7356014,8569433,5806257,8661085])
+df_final = timeblockrange(start='2018-05-01', end='2018-08-06', exclude=[7356014,7770777,8569433,5806257,8661085,8687861])
+df_super = timeblockrange(start='2018-05-01', end='2018-08-01', exclude=[7356014,7770777,5806250,8457625,8661085,8687861])
+df_super = df_super.filter(['number_agents']).rename(columns={'number_agents' : 'number_leads'})
+df_final = df_final.join(df_super,how='outer').fillna(0)
 df_final = df_final[~(df_final['number_agents'] > 30)]
 df_final = df_final[~(df_final['Overflow Calls'] > 30)]
 #df_final = df_final[~(df_final['Overflow Calls'] == 0)]
@@ -132,18 +134,18 @@ def nnfit(data) :
 # 3D Scatter-plot with logarithmic fit
 fig = plt.figure()
 ax = fig.add_subplot(111, projection = '3d')
-ax.scatter(df_final['Calls Offered'], df_final['Overflow Calls'], df_final['number_agents'], c = df_final['number_agents'], marker = 'o', s=30)
+ax.scatter(df_final['Calls Offered'], df_final['Overflow Calls'], df_final['number_agents'], c = df_final['number_leads'], marker = 'o', s=20)
 ax.plot(x_line, y_line, popt[0]*np.log(popt[1]*XX['x']+ popt[2]*XX['y'] + popt[3]), color='r', label='Logarithmic reg')
 #ax.plot(x_line, y_line, y_knn.ravel(), color='navy', lw=2, label='KNN model')
-ax.plot(x_line, y_line, nn.ravel(), color='navy', lw=2, label='Neural Network MLP reg')
+#ax.plot(x_line, y_line, nn.ravel(), color='navy', lw=2, label='Neural Network MLP reg')
 X, Y = np.meshgrid(x_line, y_range)
 Z = popt[0]*np.log(popt[1]*X + popt[2]*Y + popt[3])
 X[X>50]= np.nan; X[X<0]= np.nan
-Y[Y>15]= np.nan; Y[Y<0]= np.nan
+Y[Y>30]= np.nan; Y[Y<0]= np.nan
 Z[Z>35]= np.nan; Z[Z<0]= np.nan
 ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, linewidth=0, antialiased=False, alpha=0.5, vmin=0, vmax=30)
 plt.title('Agent Forecasting')
-ax.text2D(0.0, -0.1, r'Num of agents = {0:.3f} * ln({1:.3f} * x + {2:.3f} * y + {3:.3f})'.format(popt[0], popt[1], popt[2], popt[3]), transform=ax.transAxes)
+ax.text2D(0.1, -0.1, r'Num of agents = {0:.3f} * ln({1:.3f} * x + {2:.3f} * y + {3:.3f})'.format(popt[0], popt[1], popt[2], popt[3]), transform=ax.transAxes)
 ax.text2D(0.8, -0.1, r'r-squared = {0:.3f}'.format(r_squared), transform=ax.transAxes)
 ax.set_xlabel('Calls Offered')
 ax.set_ylabel('Overflow Calls')

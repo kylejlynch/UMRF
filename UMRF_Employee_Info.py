@@ -28,7 +28,7 @@ for i in j :
         except : continue
 
 df = pd.DataFrame(data)
-print(df.head(20))
+#print(df.head(20))
 df = df.filter(['id','employee_code','first_name','last_name','locations','positions','role','hourly_rate','phone_number','email'])
 df = df[~(df['locations'].str.len() > 1)].drop(columns = ['locations'])
 df = df[(df['positions'].str.len() >= 1)]
@@ -39,14 +39,16 @@ df['position'] = df['positions'].str[1].replace({5806257 : 'Supervisor',
                                                   8412757 : 'Shift Lead',
                                                   8569433 : 'Supervisor',
                                                   8569434 : 'Shift Lead',
-                                                  np.nan : 'Agent'})
+                                                  np.nan : 'Agent',
+                                                  8616647 : 'Agent'})
 
 df['location'] = df['positions'].str[0].replace({8457625 : 'Lambuth',
                                                   5806250 : 'Memphis',
                                                   5985624 : np.nan})
 df = df.drop(columns = ['positions'])
-#print(df.head(20))
+print(df.head(20))
 
+'''
 letters = list(string.ascii_uppercase)
 writer = pd.ExcelWriter('emplist.xlsx')
 df.to_excel(writer,'Sheet1')
@@ -54,9 +56,10 @@ worksheet = writer.sheets['Sheet1']
 for i,col in enumerate(list(df)) :    #autofit column-width
     worksheet.set_column('{}:{}'.format(letters[i+1],letters[i+1]), max(len(col)+2,df['{}'.format(col)].astype(str).map(len).max()+2))
 writer.save()
+'''
 
 conn = sqlite3.connect('emplist.sqlite')
-df.to_sql('info', conn)
+df.to_sql('info', conn,if_exists='replace')
 
 conn.commit()
 conn.close()

@@ -96,16 +96,16 @@ def callpatternsql() :
     mail.login(user,password)
     mail.select('"Call Pattern"')
     eml = search('Subject','FW: UMRF Calls Arrival Pattern for', mail)[0].split()
-    #for i in eml[-7:] :
-    for i in eml :
+    for i in eml[-5:] :
+    #for i in eml :
         result, data = mail.fetch(i,'(RFC822)')
         emlhtml = get_body(email.message_from_bytes(data[0][1]))   
 
         #extract data
         soup = BeautifulSoup(emlhtml, 'lxml')
         dt = re.findall('for ([0-9-]+)', soup.text)[0]
-        year, day, month = dt.split('-')
-        day = calendar.day_name[calendar.weekday(int(year), int(day), int(month))]
+        year, month, day = dt.split('-')
+        day = calendar.day_name[calendar.weekday(int(year), int(month), int(day))]
         if dt not in datelist :
             print(dt,'not in')
             datelist.append(dt)

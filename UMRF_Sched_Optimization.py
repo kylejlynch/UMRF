@@ -27,8 +27,8 @@ pd.set_option('display.max_columns', 100)
 headers = wheniworktoken()
 params = (
     ('location_id', '2875441'),
-    ('start', '2018-06-26'),
-    ('end', '2018-06-27')
+    ('start', '2018-08-02'),
+    ('end', '2018-08-26')
 )
 
 r = requests.get('https://api.wheniwork.com/2/shifts/', headers=headers, params=params)
@@ -42,7 +42,12 @@ for i in j :
             data[k].append(v)
         except : continue
 dfraw = pd.DataFrame(data)
-
+'''
+conn = sqlite3.connect('emplist.sqlite')
+dfemp = pd.read_sql('SELECT * FROM info',conn)
+dfemp = dfemp.rename(columns={'id':'user_id'})
+dfemp = dfemp.filter(['user_id','first_name','last_name'])
+'''
 dfdata = dfraw.filter(['user_id','position_id','start_time','end_time'])
 dfdata = dfdata[~(dfdata['position_id'] == 7356014)].drop(columns=['position_id'])
 dfdata['date'] = dfdata['start_time'].str.extract('(..\s...\s....)')
@@ -51,6 +56,13 @@ dfdata['s_time'] = dfdata['start_time'].str.extract('(..:..:..)')
 dfdata['s_time'] = dfdata['s_time'].apply(lambda x : float(convtime(x)[0]))
 dfdata['e_time'] = dfdata['end_time'].str.extract('(..:..:..)')
 dfdata['e_time'] = dfdata['e_time'].apply(lambda x : float(convtime(x)[0]))
+'''
+dfmerge = pd.merge(dfraw,dfemp,on='user_id')
+dfmerge = dfmerge.filter(['first_name','last_name','start_time','end_time','creator_id'])
+dfmerge = dfmerge[dfmerge['first_name'] == 'Alia']
+print(dfmerge)
+'''
+
 rng_lst = []
 for i,j in zip(dfdata['s_time'].tolist(),dfdata['e_time'].tolist()):
     rng_lst.append(np.arange(round(i*2)/2,j,0.5).tolist())
