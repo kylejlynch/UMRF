@@ -53,6 +53,10 @@ Example plot from UMRF_ML.py :
 
 ![](https://i.imgur.com/WpY1y51.png)
 ![](https://i.imgur.com/hOmcFg5.png)
+<br>
+The equations derived above are then used in conjunction with call flow data to predict optimal staffing for both agents and shift leads for each 30 min timeblock of the day.
+![](https://i.imgur.com/WETiptc.png)
+<br>
 
 ## Budgeting and Scheduling
 * [UMRF_Call_Pattern_month.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Call_Pattern_month.py) - Analyzes pervious month's incoming calls per 30 min time block, averages them per day of the week (along with standard deviation) and uses this to predict the optimal number of agents needed to minimize both missed calls labor costs based on previous month.
