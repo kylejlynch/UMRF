@@ -52,6 +52,7 @@ Using call flow data and schedule data from our time clock's REST API I apply Sc
 Example plot from UMRF_ML.py :
 
 ![](https://i.imgur.com/WpY1y51.png)
+![](https://i.imgur.com/hOmcFg5.png)
 
 ## Budgeting and Scheduling
 * [UMRF_Call_Pattern_month.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Call_Pattern_month.py) - Analyzes pervious month's incoming calls per 30 min time block, averages them per day of the week (along with standard deviation) and uses this to predict the optimal number of agents needed to minimize both missed calls labor costs based on previous month.
