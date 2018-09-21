@@ -63,9 +63,10 @@ Example plot from UMRF_ML.py :
 * [UMRF_Outflow.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Outflow.py) - Calculates average missed calls for the previous month (or given time period) to aid in scheduling agents.
 * [UMRF_Sched_Optimization.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_Sched_Optimization.py) - Predicts labor cost based on schedules. Breaks the schedules into 30 min time blocks. This will be used to compare scheduled vs actual hours. It will incorporate hourly pay from SQL database emplist.sqlite to yield predicted labor cost per 30 min time block. Finally, It will compare predicted number of agents to actual agents and compare with the number of overflow calls for schedule optimization.
 * [custom_functions.py](https://github.com/kylejlynch/UMRF/blob/master/custom_functions.py) - Various custom functions used repeatedly such as weighted average, weighted standard deviation, converting time to various formats, and several functions used for obtaining data from email.
-Example plot from UMRF_Earnings_Time_Block.py :
+Example plots from UMRF_Earnings_Time_Block.py and UMRF_Overflow_Agent.py:
 
-![](https://i.imgur.com/y1EE1YO.png)
+![](https://i.imgur.com/5IOqHFw.png)
+![](https://i.imgur.com/bWDjPhI.png)
 <br>
 
 ## Upcoming 
