@@ -6,31 +6,9 @@ import numpy as np
 import os
 import re
 from sensitive import emailcredentials
+from custom_functions import get_body,search,get_emails,convtime
 
 user, password, imap_url = emailcredentials()
-
-def get_body(msg) :
-    if msg.is_multipart() :
-        return get_body(msg.get_payload(1))
-    else :
-        return msg.get_payload(None,True)
-
-def search(key,value,conn) :
-    result, data = conn.search(None,key,'"{}"'.format(value))
-    return data
-
-def get_emails(result_bytes) :
-    msgs = []
-    for num in result_bytes[0].split() :
-        typ, data = conn.fetch(num, '(RFC822)')
-        msgs.append(data)
-        return msgs
-
-def convtime(t) :
-    h,m,s = re.split(':',t)
-    _hrs = int(h) + int(m)/60 + int(s)/3600
-    _min = int(h)*60 + int(m) + int(s)/60
-    return '{:.3f}'.format(_hrs),'{:.3f}'.format(_min)
 
 def agentweekly() :
     conn = sqlite3.connect('UMRF_SQL_Weekly.sqlite')
@@ -41,11 +19,11 @@ def agentweekly() :
     mail.select('"Agent Weekly"')
     
     dfemp = pd.DataFrame(columns = ['FirstName','LastName'])
-    dfdaily = pd.DataFrame()
+    dfweek = pd.DataFrame()
     datelist = pd.read_sql_query('''SELECT DISTINCT "WeekStart" FROM "AllData"''', conn)['WeekStart'].tolist()
     
     eml = search('Subject','UMRF Agent Stats for the week', mail)[0].split()
-    for i in eml[-2:] :
+    for i in eml[-12:] :
         result, data = mail.fetch(i,'(RFC822)')
         emlhtml = get_body(email.message_from_bytes(data[0][1]))
         soup = BeautifulSoup(emlhtml, 'lxml')
@@ -56,9 +34,11 @@ def agentweekly() :
             
             #prep/clean data   
             dfraw = pd.read_html(emlhtml,header=0)[0].set_index(['Employee Number'])
+            dfraw['IncidentsCreated'] = dfraw['IncidentsCreated'].mask((dfraw['IncidentsCreated'] == 0) & (dfraw['CallsHandled'] > 0))
             dfraw.insert(8, 'Ticket %',((dfraw['IncidentsCreated']/dfraw['CallsHandled'])*100).replace([np.inf,-np.inf], np.nan).round(2))
             dfraw['WeekStart'] = dt
             dfraw['FCR %'] = dfraw['FCR %'].replace({'%' : ''}, regex=True).astype('float')
+            dfraw['FCR %'] = dfraw['FCR %'].mask((dfraw['CallsHandled'] == 0))
             dfraw['LoggedOnTime'] = dfraw['LoggedOnTime'].apply(lambda x : float(convtime(x)[0]))
             dfraw['AvailTime'] = dfraw['AvailTime'].apply(lambda x : float(convtime(x)[0]))
             dfraw['NotReadyTime'] = dfraw['NotReadyTime'].apply(lambda x : float(convtime(x)[0]))
@@ -76,13 +56,20 @@ def agentweekly() :
             dfemp = dfemp.append(dftemp)
             dfemp.drop_duplicates(inplace=True)
             dfemp.index.rename('Employee Number',inplace=True)
-            dfdaily = dfdaily.append(dfraw)
+            dfweek = dfweek.append(dfraw)
         else :
             print(dt,'already in')
             continue
-    
-    dfdaily['IncidentsCreated'] = dfdaily['IncidentsCreated'].mask((dfdaily['IncidentsCreated'] == 0) & (dfdaily['CallsHandled'] > 0))
-    dfdaily.to_sql('AllData', conn, if_exists='append')
+    conn2 = sqlite3.connect('emplistmanual.sqlite')
+    dfemp = pd.read_sql_query('''SELECT * FROM info''', conn2)
+    dfemp = dfemp.filter(['fedex_id','position'])
+    dfemp = dfemp[dfemp['position'] == 'Agent']
+    dfweek= dfweek.reset_index()
+    dfweekly = pd.merge(dfweek,dfemp,left_on='Employee Number',right_on='fedex_id').drop(columns=['fedex_id','position'])
+    dfweekly['FCR %'] = dfweekly['FCR %'].mask((dfweekly['FCR %'] == 0) & ~(dfweekly['IncidentsCreated'] > 0))
+    dfweekly = dfweekly.sort_values(by=['LastName'])
+    dfweekly.to_sql('AllData', conn, if_exists='append',index=False)
     
     conn.commit()
     cur.close()
+agentweekly()

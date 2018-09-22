@@ -16,7 +16,8 @@ import matplotlib.pyplot as plt
 from custom_functions import convtime
 from sensitive import wheniworktoken
 from custom_functions import ampmtime
-from UMRF_Call_Pattern_single import callpatternsing
+#from UMRF_Call_Pattern_single import callpatternsing
+from UMRF_Ticket_Pattern_single import ticketsingle
 
 pd.set_option('display.max_columns', 100)
 
@@ -59,8 +60,12 @@ def workedshiftblock(start=None,end=None,exclude=None) :
     dfdata['end_time'] = pd.to_datetime(dfdata['end_time'],infer_datetime_format=True)
     return start, dfdata
 
-def earntimeblock() :
-    start, dfdata = workedshiftblock()
+def earntimeblock(start=None) :
+    if start is None :
+        start = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
+    else :
+        start = start
+    start, dfdata = workedshiftblock(start=start)
     labor_list = []
     hour_list = []
     for index,row in dfdata.iterrows() :
@@ -77,6 +82,37 @@ def earntimeblock() :
     dftemp2['hour_cost'] = dftemp2.sum(axis=1) # Number of hours worked per 30 min block
     df = dftemp1['labor_cost']
     
+    dfticket = ticketsingle(start)
+    
+    dfticket['ticket_revenue'] = dfticket['count'].astype(int)*float(13.80)
+    df_final = pd.concat([df, dfticket['ticket_revenue']], axis=1).fillna(0)
+    df_final['earnings'] = df_final['ticket_revenue'] - df_final['labor_cost']
+    total_rev = df_final['ticket_revenue'].sum()
+    total_labor = df_final['labor_cost'].sum()
+    total_earn = df_final['earnings'].sum()
+    
+    year, month, day = start.split('-')
+    dayname = calendar.day_name[calendar.weekday(int(year), int(month), int(day))]
+    month = calendar.month_name[int(month)]
+    
+    df_final['ticket_revenue'].plot.bar(alpha=0.60,color='green',width=0.85,legend=True)
+    df_final['labor_cost'].plot.bar(alpha=0.60,color='red',width=0.50,legend=True)
+    plt.subplots_adjust(bottom=0.25)
+    plt.xlabel('Time')
+    plt.ylabel('Revenue/Labor ($)')
+    plt.title('Labor and Revenue for {0},\n{1} {2}, {3}'.format(dayname,month,day,year))
+    ticks = (df_final.reset_index()['index'].dt.time).apply(lambda x : ampmtime(x))
+    plt.xticks(np.arange(len(df_final.index)),ticks,rotation=75)
+    ax = plt.gca()
+    #plt.text(0.70,0.78,'Revenue: ${:.2f}'.format(total_rev),transform=ax.transAxes)
+    #plt.text(0.70,0.73,'Labor: ${:.2f}'.format(total_labor),transform=ax.transAxes)
+    plt.text(0.70,0.77,'Earnings: ${:.2f}'.format(total_earn),transform=ax.transAxes)
+    ax.legend(['Calls Revenue', 'Labor Cost'])
+    plt.savefig('timeblock_yesterday.png',bbox_inches='tight')
+    #plt.close('all')
+#earntimeblock('2018-09-17')
+
+'''
     df_call = callpatternsing(start)
     
     df_call['ACD_calls_revenue'] = df_call['ACD Calls'].astype(int)*float(13.80)
@@ -99,3 +135,4 @@ def earntimeblock() :
     ax.legend(['Calls Revenue', 'Labor Cost'])
     plt.savefig('timeblock_yesterday.png',bbox_inches='tight')
     plt.close('all')
+'''

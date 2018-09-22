@@ -36,22 +36,26 @@ def callrangeavg(start,end) :
     dfavg['Calls stdev'] = df.groupby(['rank','Day','Time Interval'],sort=False)['Calls Offered'].agg(np.std, ddof=0)
     dfavg['Overflow stdev'] = df.groupby(['rank','Day','Time Interval'],sort=False)['Overflow Calls'].agg(np.std, ddof=0)
     #dfavg['Pred Num Agents_avg'] = dfavg['Calls Offered']/1.32
-    dfavg['Pred Num Agents_log'] = 24.265*np.log(0.0612*dfavg['Calls Offered'] - 0.08037*1 + 1.0359)
+    dfavg['Pred Num Agents'] = 24.265*np.log(0.0612*dfavg['Calls Offered'] - 0.08037*1 + 1.0359)
     #dfavg['Pred Num Agents_log'] = 20.8829*np.log(0.072*dfavg['Calls Offered'] - 0.0788*1 + 0.99769)
     #dfavg['Pred Num Agents_nn'] = dfavg['Calls Offered'].apply(lambda x : nnfit([x,1])[0])
     #dfavg['log_nn_avg'] = (dfavg['Pred Num Agents_log'] + dfavg['Pred Num Agents_nn'])/2
     #dfavg['diff'] = dfavg['log_nn_avg'] - dfavg['number_agents']
-    dfavg['approx_agents_needed'] = dfavg['Pred Num Agents_log'] - dfavg['number_agents']
+    dfavg['approx_agents_needed'] = dfavg['Pred Num Agents'] - dfavg['number_agents']
+    dfavg['Pred Num Leads'] = 0.3092456227426613*dfavg['Pred Num Agents'] + 0.7102183215768556
+    dfavg = dfavg.filter(['Calls Offered','Calls stdev', 'Overflow Calls','Overflow stdev','number_agents','Pred Num Agents','approx_agents_needed','Pred Num Leads'])
     dfavg = dfavg.round(3)
     
     dfavg = dfavg.apply(pd.to_numeric, errors='ignore')
     dfavg = dfavg.sort_index(level=0,sort_remaining=False).reset_index(level=0,drop=True)
-    
+
     writer = pd.ExcelWriter('Avg_Callflow_{0}{1}to{2}{3}.xlsx'.format(smonth,sday,emonth,eday))
     dfavg.to_excel(writer,'Sheet1')
     worksheet = writer.sheets['Sheet1']
+    worksheet.freeze_panes(1, 2)
     letters = list(string.ascii_uppercase)
     for i,col in enumerate(list(dfavg.reset_index())) :    #autofit column-width
         worksheet.set_column('{}:{}'.format(letters[i],letters[i]), max(12,len('{}'.format(col))+2,dfavg.reset_index()['{}'.format(col)].astype(str).map(len).max()+2))
     return writer.save()
-callrangeavg('2018-07-01','2018-07-27')
+
+callrangeavg('2018-08-20','2018-08-27')

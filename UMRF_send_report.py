@@ -50,7 +50,7 @@ def send_mail(send_from, send_to, subject, text, html=None, files=None) :
         smtp.close()
     except :
         print('Something went wrong...')
-
+'''
 dfhtml = pd.read_html('ticket_percent_yest.html')[0]
 dfhtml = dfhtml.drop(columns=['Unnamed: 0'])
 
@@ -58,4 +58,5 @@ text = 'This is an automated email. If you have any questions or concerns please
 html = dfhtml.to_html(index=False,border='border')
 #emaillist = ['kylejlynch@gmail.com','jsankhon@umrfventures.com','chloe.sutton.osv@fedex.com','jemario.houston.osv@fedex.com','nedra.stratton.osv@fedex.com']
 #send_mail(user, emaillist,'Ticket Percentage Less than 100%', text=text, html=html)
-send_mail(user,['kylejlynch@gmail.com'],'test email', text,html=html,files=['timeblock_yesterday.png'])
+#send_mail(user,['kylejlynch@gmail.com'],'test email', text,html=html,files=['timeblock_yesterday.png'])
+'''

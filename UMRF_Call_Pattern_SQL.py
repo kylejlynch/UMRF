@@ -2,7 +2,6 @@
 '''
 Retrieves number of offered calls, accepted calls, and overflow (missed) calls for a single day
 from data sent via email.
-(for now saved files)
 Used in UMRF_Earnings_Time_block.py
 '''
 import pandas as pd
@@ -53,7 +52,7 @@ def callpatternfile() :
                 #prep/clean data
                 dfraw = pd.read_html(emlhtml,header=0)[0]
                 dfraw = dfraw.iloc[14:40].reset_index(drop=True)
-                dfraw.replace({'! ':'','!':'','< /td>':'','<tr>':'','< td>':'','< tr>':''}, regex=True,inplace=True)
+                dfraw.replace({'! ':'','!':'','< /td>':'','<tr>':'','< td>':'','< tr>':'','A\sM':'AM'}, regex=True,inplace=True)
                 if not 'Overflow Calls' in dfraw :
                     dfraw['Overflow Calls'] = dfraw['Calls Offered'].astype('float') - dfraw['ACD Calls'].astype('float')
                     
@@ -112,7 +111,7 @@ def callpatternsql() :
             #prep/clean data
             dfraw = pd.read_html(emlhtml,header=0)[0]
             dfraw = dfraw.iloc[14:40].reset_index(drop=True)
-            dfraw.replace({'! ':'','!':'','< /td>':'','<tr>':'','< td>':'','< tr>':''}, regex=True,inplace=True)
+            dfraw.replace({'! ':'','!':'','< /td>':'','<tr>':'','< td>':'','< tr>':'','A\sM':'AM','\s':'','[0-9]+\s':''}, regex=True,inplace=True)
             if not 'Overflow Calls' in dfraw :
                 dfraw['Overflow Calls'] = dfraw['Calls Offered'].astype('float') - dfraw['ACD Calls'].astype('float')
                 

@@ -24,26 +24,28 @@ def top_perform() :
                                          FROM "AllData"
                                          WHERE "Date"
                                          IS "{1}"
-                                         AND "CallsHandled" > 5
+                                         AND "CallsHandled" > 7
                                          ORDER BY "{0}" {2} LIMIT 5'''.format(i,yesterday,j),
                                          conn2)
         topdf.index += 1
         topdf.to_html('{}.html'.format(k))
-    
-    ticketdf = pd.read_sql_query('''SELECT "Date",
-                                         "FirstName",
-                                         "LastName",
-                                         "CallsHandled",
-                                         "IncidentsCreated",
-                                         "Ticket %"
-                                         FROM "AllData"
-                                         WHERE "Date"
-                                         IS "{0}"
-                                         AND "Ticket %" < 100
-                                         ORDER BY "Ticket %" ASC'''.format(yesterday),
-                                         conn2)
-    ticketdf.to_html('ticket_percent_yest.html')
-    
+    """
+    if date.today().weekday() != 0 :
+        ticketdf = pd.read_sql_query('''SELECT "Date",
+                                             "FirstName",
+                                             "LastName",
+                                             "CallsHandled",
+                                             "IncidentsCreated",
+                                             "Ticket %"
+                                             FROM "AllData"
+                                             WHERE "Date"
+                                             IS "{0}"
+                                             AND "Ticket %" < 100
+                                             ORDER BY "Ticket %" ASC'''.format(yesterday),
+                                             conn2)
+        ticketdf = ticketdf['IncidentsCreated'].astype('int')
+        ticketdf.to_html('ticket_percent_yest.html')
+    """
     if date.today().weekday() == 0 :
         val = ['FCR %', 'NR%', 'AHT (min)',"IncidentsCreated"]
         order = ['DESC','ASC','ASC','DESC']
@@ -57,7 +59,7 @@ def top_perform() :
                                              FROM "AllData"
                                              WHERE "WeekStart"
                                              IS "{1}"
-                                             AND "CallsHandled" > 20
+                                             AND "CallsHandled" > 35
                                              ORDER BY "{0}" {2} LIMIT 5'''.format(i,lstwk,j),
                                              conn)
             topdf.index += 1

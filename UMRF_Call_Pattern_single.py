@@ -28,6 +28,7 @@ def callpatternsing(yyyymmdd) :
                         FROM AllData
                         ''',conn)
     df = dfsql[dfsql['Date'] == yyyymmdd]
+    print(df.head())
     time = pd.date_range(start='{} 07:30:00'.format(yyyymmdd),end = '{} 20:00:00'.format(yyyymmdd),freq='30T')
     df = df.set_index(time)
     return df

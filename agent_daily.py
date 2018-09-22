@@ -47,7 +47,7 @@ def agentdaily() :
     datelist = pd.read_sql_query('''SELECT DISTINCT "Date" FROM "AllData"''', conn)['Date'].tolist()
     
     eml = search('Subject','FW: UMRF Agent Stats', mail)[0].split()
-    for i in eml[-5:] :
+    for i in eml[-35:] :
         result, data = mail.fetch(i,'(RFC822)')
         emlhtml = get_body(email.message_from_bytes(data[0][1]))
         soup = BeautifulSoup(emlhtml, 'lxml')
@@ -58,9 +58,11 @@ def agentdaily() :
             
             #prep/clean data   
             dfraw = pd.read_html(emlhtml,header=0)[0].set_index(['Employee Number'])
+            dfraw['IncidentsCreated'] = dfraw['IncidentsCreated'].mask((dfraw['IncidentsCreated'] == 0) & (dfraw['CallsHandled'] > 0))
             dfraw.insert(8, 'Ticket %',((dfraw['IncidentsCreated']/dfraw['CallsHandled'])*100).replace([np.inf,-np.inf], np.nan).round(2))
             dfraw['Date'] = dt
             dfraw['FCR %'] = dfraw['FCR %'].replace({'%' : ''}, regex=True).astype('float')
+            dfraw['FCR %'] = dfraw['FCR %'].mask((dfraw['FCR %'] == 0) & ~(dfraw['IncidentsCreated'] > 0))
             dfraw['LoggedOnTime'] = dfraw['LoggedOnTime'].apply(lambda x : float(convtime(x)[0]))
             dfraw['AvailTime'] = dfraw['AvailTime'].apply(lambda x : float(convtime(x)[0]))
             dfraw['NotReadyTime'] = dfraw['NotReadyTime'].apply(lambda x : float(convtime(x)[0]))
@@ -83,7 +85,6 @@ def agentdaily() :
             print(dt,'already in')
             continue
     
-    dfdaily['IncidentsCreated'] = dfdaily['IncidentsCreated'].mask((dfdaily['IncidentsCreated'] == 0) & (dfdaily['CallsHandled'] > 0))
     dfdaily.to_sql('AllData', conn, if_exists='append')
     
     conn.commit()

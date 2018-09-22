@@ -46,7 +46,7 @@ df['location'] = df['positions'].str[0].replace({8457625 : 'Lambuth',
                                                   5806250 : 'Memphis',
                                                   5985624 : np.nan})
 df = df.drop(columns = ['positions'])
-print(df.head(20))
+print(df)
 
 '''
 letters = list(string.ascii_uppercase)

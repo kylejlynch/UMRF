@@ -55,3 +55,4 @@ def overflowagent(yyyymmdd=None) :
     ax = plt.gca()
     ax.legend(['Number of Agents','Overflow Calls'])
     plt.savefig('overflowagent_yesterday.png',bbox_inches='tight')
+overflowagent('2018-09-17')

@@ -25,6 +25,7 @@ from matplotlib import cm
 from scipy.optimize import curve_fit
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.neural_network import MLPRegressor
+from scipy import stats
 
 pd.set_option('display.max_columns', 100)
 pd.set_option('display.max_rows', 300)
@@ -75,80 +76,46 @@ def timeblockrange(start,end,exclude=None) :
     dftemp2['number_agents'] = (dftemp2.sum(axis=1))*2 # Number of hours = number of agents
     df = dftemp2['number_agents']
 
-    df_call = callpatternrange(start='2018-05-01', end='2018-09-06').drop(columns=['Date','rank'])
+    df_call = callpatternrange(start='2018-05-01', end='2018-09-15').drop(columns=['Date','rank'])
 
     df_final = df_call.join(df,how='inner')
     df_final = df_final.drop(columns=['SL Abandoned','Abandoned Calls'])
     df_final = df_final.apply(pd.to_numeric, errors='ignore')
     return df_final
 
-df_final = timeblockrange(start='2018-05-01', end='2018-09-06', exclude=[7356014,7770777,8569433,5806257,8661085,8687861])
-df_super = timeblockrange(start='2018-05-01', end='2018-09-06', exclude=[7356014,7770777,5806250,8457625,8661085,8687861])
+df_final = timeblockrange(start='2018-05-01', end='2018-09-15', exclude=[7356014,7770777,8569433,5806257,8661085,8687861])
+df_super = timeblockrange(start='2018-05-01', end='2018-09-15', exclude=[7356014,7770777,5806250,8457625,8661085,8687861])
 df_super = df_super.filter(['number_agents']).rename(columns={'number_agents' : 'number_leads'})
 df_final = df_final.join(df_super,how='outer').fillna(0)
-df_final = df_final[~(df_final['number_agents'] > 30)]
-df_final = df_final[~(df_final['Overflow Calls'] > 30)]
-#df_final = df_final[~(df_final['Overflow Calls'] == 0)]
+#df_final = df_final[~(df_final['number_agents'] > 30)]
+#df_final = df_final[~(df_final['Overflow Calls'] > 30)]
+df_final['ratio'] = df_final['ACD Calls']/df_final['Calls Offered']
+df_final['ratio2'] = df_final['number_leads']/df_final['number_agents']
+df_final = df_final[(df_final['ratio'] == 1)]
+df_final = df_final[~(df_final['ratio2'] > 1)]
+#df_final = df_final[~(df_final['Overflow Calls'] > 1)]
 
 # data set-up
-x = np.array([df_final['Calls Offered'].tolist(),df_final['Overflow Calls'].tolist()],dtype=float) # x, y axes
-z = np.array(df_final['number_agents'].tolist(),dtype=float) # z axis
 
-# define function
-def logfit(x, a, b, c, d) :
-    return a * np.log(b*x[0] + c*x[1] + d)
-guess = (20,1,5,1) # initial guess at constants a,b,c and d
-popt, pcov = curve_fit(logfit, x, z, guess)
-print('a = {0} , b = {1}, c = {2}, d = {3}'.format(popt[0], popt[1], popt[2], popt[3]))
-print('z = {0}*ln({1}*x + {2}*y + {3})'.format(popt[0],popt[1],popt[2],popt[3]))
-
-# r-squared value
-residuals = z - logfit(x, popt[0], popt[1], popt[2], popt[3])
-ss_res = np.sum(residuals**2)
-ss_tot = np.sum((z - np.mean(z))**2)
-r_squared = 1 - (ss_res / ss_tot)
-print(r_squared)
-
-# Plot log set-up
-x_line = np.arange(0,50).astype('float')
-y_line = [1]*50
-y_range =np.arange(0,50).astype('float')
-XX = pd.DataFrame({'x':x_line.tolist(),'y':y_line})
-
-# KNN, Neural Network & plot set-up
-X = df_final[['Calls Offered','Overflow Calls']].values.reshape(-1,2)
-y = df_final['number_agents'].values.reshape(-1,1)
-
-y_knn = KNeighborsRegressor(n_neighbors=20).fit(X,y).predict(XX) #KNN
-#nn = MLPRegressor(hidden_layer_sizes=(30), activation='tanh',max_iter=300).fit(X, y).predict(XX)
-nn = MLPRegressor(hidden_layer_sizes=(5), activation='tanh',solver='lbfgs').fit(X, y).predict(XX) # Neural Network
-
-
-def nnfit(data) :
-    data = [data]
-    X = df_final[['Calls Offered','Overflow Calls']].values.reshape(-1,2)
-    y = df_final['number_agents'].values.reshape(-1,1)
-    nn = MLPRegressor(hidden_layer_sizes=(5), activation='tanh',solver='lbfgs').fit(X, y).predict(data)
-    return nn
+x = df_final['Calls Offered'].values
+y = df_final['ratio2'].values
+slope,intercept,r_value,p_value,std_err = stats.linregress(x,y)
+print('y = {0}*x + {1}'.format(slope,intercept))
+print('r-squared:',r_value**2)
+x_line = [1]*40
+y_line = np.arange(0,40).astype('float')
+z_line = slope*y_line + intercept
 
 # 3D Scatter-plot with logarithmic fit
 fig = plt.figure()
 ax = fig.add_subplot(111, projection = '3d')
-ax.scatter(df_final['Calls Offered'], df_final['Overflow Calls'], df_final['number_agents'], c = df_final['number_leads'], marker = 'o', s=20)
-ax.plot(x_line, y_line, popt[0]*np.log(popt[1]*XX['x']+ popt[2]*XX['y'] + popt[3]), color='r', label='Logarithmic reg')
-#ax.plot(x_line, y_line, y_knn.ravel(), color='navy', lw=2, label='KNN model')
-#ax.plot(x_line, y_line, nn.ravel(), color='navy', lw=2, label='Neural Network MLP reg')
-X, Y = np.meshgrid(x_line, y_range)
-Z = popt[0]*np.log(popt[1]*X + popt[2]*Y + popt[3])
-X[X>50]= np.nan; X[X<0]= np.nan
-Y[Y>30]= np.nan; Y[Y<0]= np.nan
-Z[Z>35]= np.nan; Z[Z<0]= np.nan
-ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, linewidth=0, antialiased=False, alpha=0.5, vmin=0, vmax=30)
-plt.title('Agent Forecasting')
-ax.text2D(0.1, -0.1, r'Num of agents = {0:.3f} * ln({1:.3f} * x + {2:.3f} * y + {3:.3f})'.format(popt[0], popt[1], popt[2], popt[3]), transform=ax.transAxes)
-ax.text2D(0.8, -0.1, r'r-squared = {0:.3f}'.format(r_squared), transform=ax.transAxes)
-ax.set_xlabel('Calls Offered')
-ax.set_ylabel('Overflow Calls')
-ax.set_zlabel('Number of Agents')
-ax.legend()
+ax.scatter(df_final['ratio'], df_final['Calls Offered'], df_final['ratio2'], c = df_final['ratio'], marker = 'o', s=10)
+ax.plot(x_line, y_line,z_line, color='red', lw=2, label='Lead regression')
+plt.title('Shift-Lead Forecasting')
+ax.text2D(0.12, -0.1, r'Number of Leads = {0:.3f} * Number of Agents + {1:.3f}'.format(slope,intercept), transform=ax.transAxes)
+ax.text2D(0.7, -0.1, r'r-squared = {0:.3f}'.format(r_value**2), transform=ax.transAxes)
 
+ax.set_xlabel('ACD Calls/Offered')
+ax.set_ylabel('Calls Offered')
+ax.set_zlabel('Leads/Agents')
+ax.legend()
