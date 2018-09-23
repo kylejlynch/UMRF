@@ -43,7 +43,7 @@ The Excel workbook is currently used by supervisors to ensure that agents are pe
 
 ![Agent_Weekly.xlsx](https://i.imgur.com/kOOAhs2.png)
 <br><br>
-Below: I implemented start and end date fields which allows the user to retrive call flow averages between the specified dates. Once entered, a cusomized Excel document will download with average 1) offered calls, 1) offered standard deviation 3) missed calls, 4) missed standard deviation, 5) the number of agents we had working, 6) number of agent predicted (see next section on machine learning and predictive analytics), and 7) number of shift-leads predicted (see next section) for 30 minute time intervals throughout the day for each day of the week.
+**Below**: I implemented 'start' and 'end' date fields which allows the user to retrive call flow averages between the specified dates. Once entered, a cusomized Excel document will download with average 1) offered calls, 1) offered standard deviation 3) missed calls, 4) missed standard deviation, 5) the number of agents we had working, 6) number of agent predicted (see next section on machine learning and predictive analytics), and 7) number of shift-leads predicted (see next section) for 30 minute time intervals throughout the day for each day of the week.
 ![](https://i.imgur.com/rIEzw4m.png)
 <br>
 <br>
