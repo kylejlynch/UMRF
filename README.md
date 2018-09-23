@@ -42,10 +42,13 @@ The result is a webapp hosted on PythonAnywhere at UMRFVentures.pythonanywhere.c
 The Excel workbook is currently used by supervisors to ensure that agents are performing up to standard, and for helping supervisors conduct 90 day reviews for agents up for their 90 day raise. Auto-formatted cells are green or red if 1 standard deviation above of below the average (white = average, green = good, red = bad).
 
 ![Agent_Weekly.xlsx](https://i.imgur.com/kOOAhs2.png)
+<br><br>
+Below: I implemented start and end date fields which allows the user to retrive call flow averages between the specified dates. Once entered, a cusomized Excel document will download with average 1) offered calls, 1) offered standard deviation 3) missed calls, 4) missed standard deviation, 5) the number of agents we had working, 6) number of agent predicted (see next section on machine learning and predictive analytics), and 7) number of shift-leads predicted (see next section) for 30 minute time intervals throughout the day for each day of the week.
+![](https://i.imgur.com/rIEzw4m.png)
 <br>
 <br>
 ## Machine Learning and Predictive Analytics
-Using call flow data and schedule data from our time clock's REST API I apply Scikit-Learn machine learning (ML) algorithms as well as SciPy curve_fit to predict how many agents will be need as we continue to increase call flow with FedEx. I noticed the data had a slight logarithmic look to it so I tried fitting it with y = a*ln(b*x + c*y + d) with good results. The ML algorithms seemed to do really well within the scope of the data. However, the equation obtained from the log fit does better at making predictions out of the scope of the data.
+Using call flow data and schedule data from our time clock's REST API I apply Scikit-Learn machine learning (ML) algorithms as well as SciPy curve_fit to predict how many agents will be need as we continue to increase call flow with FedEx. I noticed the data had a slight logarithmic look to it so I tried fitting it with y = a&ast;ln(b&ast;x + c&ast;y + d) with good results. The ML algorithms seemed to do really well within the scope of the data. However, the equation obtained from the log fit does better at making predictions out of the scope of the data.
 * [UMRF_ML.py](https://github.com/kylejlynch/UMRF/blob/master/UMRF_ML.py) - Somewhat of a scrap sheet of paper at the moment while I text various machine learning models in scikit-learn and and fits in scipy. Collects shift information from WhenIwork API and call flow data from Cisco. Predicts number of employees needed to take all calls per 30 min time block. This is important - as we continue to increase call volume as we grow we need to accurately predict scheduling throughout the day. My best fit so far is a logarithmic fit using scipy (see below for the plot with fit).
 
 <br>
