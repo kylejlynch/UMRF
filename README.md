@@ -78,5 +78,8 @@ Example plots from UMRF_Earnings_Time_Block.py and UMRF_Overflow_Agent.py:
 <br>
 
 ## Upcoming 
-I will soon work on:
-* Track tardies/absences with WhenIWork API
+Currently working with Google Maps API. Below is a distribution of the incoming calls on 2018-10-05
+![](https://i.imgur.com/XslfYRw.png)
+<br>
+I am currently working to make an animated GIF of call distribution throughout the day in 20 min intervals.
+
