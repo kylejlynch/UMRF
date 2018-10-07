@@ -80,6 +80,8 @@ Example plots from UMRF_Earnings_Time_Block.py and UMRF_Overflow_Agent.py:
 ## Upcoming 
 Currently working with Google Maps API. Below is a distribution of the incoming calls on 2018-10-05
 ![](https://i.imgur.com/XslfYRw.png)
+And using Folium:
+![](https://i.imgur.com/8Ud9Bde.png)
 <br>
 I am currently working to make an animated GIF of call distribution throughout the day in 20 min intervals.
 
